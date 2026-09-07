@@ -1,0 +1,377 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
+#ifndef MATH_TRIG_HPP
+#define MATH_TRIG_HPP
+
+#include <windows.h>
+#include <cmath>
+#include <cstdint>
+
+#define HALO_PI 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679
+#define DEGREES_TO_RADIANS(deg) (deg / 180.0 * HALO_PI)
+#define RADIANS_TO_DEGREES(rad) (rad / HALO_PI * 180.0)
+#define FLOOR(n, floor) ((n)<(floor)?(floor):(n))
+#define CEILING(n, ceiling) ((n)>(ceiling)?(ceiling):(n))
+#define PIN(n, floor, ceiling) ((n)<(floor) ? (floor) : CEILING(n, ceiling))
+#define fast_ftol_floor(x) fast_ftol(floor(x))
+#define FLAG(b) (1<<(b))
+#define TEST_FLAG(f, b) (((f)&FLAG(b))!=0)
+#define SET_FLAG(f, b, v) ((v) ? ((f)|=FLAG(b)) : ((f)&=~FLAG(b)))
+#define SWAP_FLAG(f, b) ((f)^=FLAG(b))
+
+#define RANDOM_A 1664525L
+#define RANDOM_C 1013904223L
+#define RANDOM(seed) (((seed) = RANDOM_A * (seed) + RANDOM_C)>>16)
+#define REAL_RANDOM(seed) ((1.0f / static_cast<float>(0xffff)) * RANDOM(seed))
+#define REAL_RANDOM_RANGE(seed, lower_bound, delta) ((lower_bound) + (delta) * REAL_RANDOM(seed))
+
+namespace Chimera {
+    struct ColorARGB;
+    struct ColorByte;
+
+    struct ColorRGB {
+        float red = 1.0;
+        float green = 1.0;
+        float blue = 1.0;
+
+        ColorRGB() noexcept = default;
+        ColorRGB(float r, float g, float b) noexcept;
+        ColorRGB(const ColorByte &other) noexcept;
+        ColorRGB(const ColorARGB &other) noexcept;
+        ColorRGB(const ColorRGB &) noexcept = default;
+        ColorRGB &operator=(const ColorRGB &) noexcept = default;
+    };
+
+    struct ColorARGB {
+        float alpha = 1.0;
+        float red = 1.0;
+        float green = 1.0;
+        float blue = 1.0;
+
+        ColorARGB() noexcept = default;
+        ColorARGB(float a, float r, float g, float b) noexcept;
+        ColorARGB(const ColorByte &other) noexcept;
+        ColorARGB(const ColorRGB &other) noexcept;
+        ColorARGB(const ColorARGB &) noexcept = default;
+        ColorARGB &operator=(const ColorARGB &) noexcept = default;
+    };
+
+    struct ColorByte {
+        unsigned char blue;
+        unsigned char green;
+        unsigned char red;
+        unsigned char alpha = 255;
+
+        ColorByte() noexcept = default;
+        ColorByte(float a, float r, float g, float b) noexcept;
+        ColorByte(unsigned char a, unsigned char r, unsigned char g, unsigned char b) noexcept;
+        ColorByte(const ColorRGB &other) noexcept;
+        ColorByte(const ColorARGB &other) noexcept;
+        ColorByte(const ColorByte &) noexcept = default;
+        ColorByte &operator=(const ColorByte &) noexcept = default;
+    };
+
+    struct Vector2DInt {
+        short x;
+        short y;
+    };
+
+    struct Rectangle2D {
+        short top;
+        short left;
+        short bottom;
+        short right;
+    };
+
+    struct Plane3D {
+        float i;
+        float j;
+        float k;
+        float w;
+    };
+
+    struct Point3D {
+        float x;
+        float y;
+        float z;
+    };
+
+    struct Point2D {
+        float x;
+        float y;
+    };
+
+    using Vector2D = Point2D;
+    using Vector3D = Point3D;
+
+    struct VectorIJ {
+        float i;
+        float j;
+
+        operator Point2D() const {return {i, j};}
+    };
+
+    struct VectorIJK {
+        float i;
+        float j;
+        float k;
+
+        operator Point3D() const {return {i, j, k};}
+    };
+
+    struct VectorIJKL {
+        float i;
+        float j;
+        float k;
+        float l;
+    };
+
+    struct Euler2DYP {
+        float yaw;
+        float pitch;
+    };
+
+    struct Euler3DPYR {
+        float pitch;
+        float yaw;
+        float roll;
+    };
+
+    struct Euler3DYPR {
+        float yaw;
+        float pitch;
+        float roll;
+    };
+
+    struct Matrix4x3 {
+        float scale;
+
+        VectorIJK forward;
+        VectorIJK left;
+        VectorIJK up;
+        Point3D position;
+    };
+    static_assert(sizeof(Matrix4x3) == 0x34);
+
+    struct Bounds2D {
+        float left;
+        float right;
+        float top;
+        float bottom;
+    };
+
+    struct Rectangle3DF {
+        float top;
+        float left;
+        float bottom;
+        float right;
+        float front;
+        float back;
+    };
+
+    struct RotationMatrix;
+    struct Quaternion {
+        float x = 0.0F;
+        float y = 0.0F;
+        float z = 0.0F;
+        float w = 1.0F;
+        Quaternion() noexcept = default;
+        Quaternion(const RotationMatrix &matrix) noexcept;
+        Quaternion(const Quaternion &) noexcept = default;
+        Quaternion &operator =(const Quaternion &) noexcept = default;
+    };
+
+    struct RotationMatrix {
+        Point3D v[3];
+        RotationMatrix() noexcept;
+        RotationMatrix(const Quaternion &quaternion) noexcept;
+        RotationMatrix(const RotationMatrix &) noexcept = default;
+        RotationMatrix &operator =(const RotationMatrix &) noexcept = default;
+    };
+
+    struct ProjectionMatrix {
+        float x[4];
+        float y[4];
+        float z[4];
+        float w[4];
+    };
+
+
+    /**
+     * Interpolate a quaternion.
+     * @param in_before This is the quaternion to interpolate from.
+     * @param in_after  This is the quaternion to interpolate to.
+     * @param out       This is the quaternion to overwrite.
+     * @param progress  This is how far in between each quaternion (0.0 - 1.0) to create an interpolated quaternion.
+     */
+    void interpolate_quat(const Quaternion &in_before, const Quaternion &in_after, Quaternion &out, float progress) noexcept;
+
+    /**
+     * Interpolate a 3D point.
+     * @param in_before This is the 3D point to interpolate from.
+     * @param in_after  This is the 3D point to interpolate to.
+     * @param out       This is the 3D point to overwrite.
+     * @param progress  This is how far in between each point (0.0 - 1.0) to create an interpolated 3D point.
+     */
+    void interpolate_point(const Point3D &before, const Point3D &after, Point3D &output, float scale) noexcept;
+
+    /**
+     * Calculate the distance between two 2D points without taking square roots. If the square root isn't necessary, then this is faster.
+     * @param  x1 This is the X coordinate of the first point.
+     * @param  y1 This is the Y coordinate of the first point.
+     * @param  x2 This is the X coordinate of the second point.
+     * @param  y2 This is the Y coordinate of the second point.
+     * @return    Return the distance.
+     */
+    float distance_squared(float x1, float y1, float x2, float y2) noexcept;
+
+    /**
+     * Calculate the distance between two 2D points without taking square roots. If the square root isn't necessary, then this is faster.
+     * @param  a This is the first point.
+     * @param  b This is the second point.
+     * @return   Return the distance squared.
+     */
+    float distance_squared(const Point2D &a, const Point2D &b) noexcept;
+
+    /**
+     * Calculate the distance between two 3D points without taking square roots. If the square root isn't necessary, then this is faster.
+     * @param  x1 This is the X coordinate of the first point.
+     * @param  y1 This is the Y coordinate of the first point.
+     * @param  z1 This is the Z coordinate of the first point.
+     * @param  x2 This is the X coordinate of the second point.
+     * @param  y2 This is the Y coordinate of the second point.
+     * @param  z2 This is the Z coordinate of the second point.
+     * @return    Return the distance squared.
+     */
+    float distance_squared(float x1, float y1, float z1, float x2, float y2, float z2) noexcept;
+
+    /**
+     * Calculate the distance between two 3D points without taking square roots. If the square root isn't necessary, then this is faster.
+     * @param  a This is the first point.
+     * @param  b This is the second point.
+     * @return   Return the distance squared.
+     */
+    float distance_squared(const Point3D &a, const Point3D &b) noexcept;
+
+    /**
+     * Calculate the distance between two 2D points.
+     * @param  x1 This is the X coordinate of the first point.
+     * @param  y1 This is the Y coordinate of the first point.
+     * @param  x2 This is the X coordinate of the second point.
+     * @param  y2 This is the Y coordinate of the second point.
+     * @return    Return the distance.
+     */
+    float distance(float x1, float y1, float x2, float y2) noexcept;
+
+    /**
+     * Calculate the distance between two 2D points.
+     * @param  a This is the first point.
+     * @param  b This is the second point.
+     * @return   Return the distance.
+     */
+    float distance(const Point2D &a, const Point2D &b) noexcept;
+
+    /**
+     * Calculate the distance between two 3D points.
+     * @param  x1 This is the X coordinate of the first point.
+     * @param  y1 This is the Y coordinate of the first point.
+     * @param  z1 This is the Z coordinate of the first point.
+     * @param  x2 This is the X coordinate of the second point.
+     * @param  y2 This is the Y coordinate of the second point.
+     * @param  z2 This is the Z coordinate of the second point.
+     * @return    Return the distance.
+     */
+    float distance(float x1, float y1, float z1, float x2, float y2, float z2) noexcept;
+
+    /**
+     * Calculate the distance between two 3D points.
+     * @param  a This is the first point.
+     * @param  b This is the second point.
+     * @return   Return the distance.
+     */
+    float distance(const Point3D &a, const Point3D &b) noexcept;
+
+    /**
+     * Calculate the magnitude of a 3D vector without taking square roots. If the square root isn't necessary, then this is faster.
+     * @param  a This is the point vector.
+     * @return   Return the magnitude.
+     */
+    float magnitude_squared3d(const Point3D &a) noexcept;
+
+    /**
+     * Calculate the magnitude of a 2D vector without taking square roots. If the square root isn't necessary, then this is faster.
+     * @param  a This is the point vector.
+     * @return   Return the magnitude.
+     */
+    float magnitude_squared2d(const Point2D &a) noexcept;
+
+    /**
+     * Calculate the magnitude of a 3D vector.
+     * @param  a This is the point vector.
+     * @return   Return the magnitude.
+     */
+    float magnitude3d(const Point3D &a) noexcept;
+
+    /**
+     * Calculate the magnitude of a 2D vector.
+     * @param  a This is the point vector.
+     * @return   Return the magnitude.
+     */
+    float magnitude2d(const Point2D &a) noexcept;
+
+    /**
+     * Calculate normalized magnitude of a vector.
+     * @param  a This is the point vector.
+     * @return   Return the normalized magnitude.
+     */
+    float normalize2d(VectorIJ &a) noexcept;
+
+    /**
+     * Outputs dot product of 2 3D points.
+     */
+    float dot_product_3d(Point3D *a, Point3D *b) noexcept;
+    float dot_product_3d(VectorIJK *a, VectorIJK *b) noexcept;
+
+    /**
+     * Get the time elapsed since a counter.
+     */
+    double counter_time_elapsed(const LARGE_INTEGER &before) noexcept;
+
+    /**
+     * Get the time elapsed between two counters.
+     */
+    double counter_time_elapsed(const LARGE_INTEGER &before, const LARGE_INTEGER &after) noexcept;
+
+    /**
+     * Convert float to long except make it do x87 fistp memes
+     */
+    long fast_ftol(float float_to_round) noexcept;
+
+    /**
+     * Convert 32-bit argb color to float.
+     */
+    void pixel32_to_real_argb_color(const std::uint32_t pixel, ColorARGB *color) noexcept;
+
+    /**
+     * Convert a ColorARGB color to a 32-bit argb.
+     */
+    std::uint32_t real_argb_color_to_pixel32(const ColorARGB *color) noexcept;
+
+    /**
+     * Outputs a pseudorandom float. This uses the games random seed.
+     */
+    float real_local_random() noexcept;
+
+    /**
+     * Outputs a pseudorandom float between 2 values. This uses the games random seed.
+     */
+    float real_local_random_range(float lower, float upper) noexcept;
+
+    /**
+     * Outputs a pseudorandom bool. This uses the games random seed.
+     */
+    bool bool_local_random() noexcept;
+
+}
+
+#endif

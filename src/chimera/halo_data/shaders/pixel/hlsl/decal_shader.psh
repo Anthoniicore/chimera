@@ -1,0 +1,99 @@
+sampler2D TexS0 : register(s0);
+
+struct PS_INPUT {
+   float4 Pos : SV_POSITION;
+   float4 D0 : COLOR0;
+   float4 D1 : COLOR1;
+   float4 T0 : TEXCOORD0;
+};
+
+float4 fog_hack : register(c0);
+
+half4 main_T0_P0(PS_INPUT input) : COLOR0
+{
+   half4 tex = tex2D(TexS0, input.T0.xy);
+   half4 col = input.D0;
+   half4 res = 0;
+
+   res.rgb = half3(1.0,0,0);
+   res.a   = 1.0;
+   
+   // add/revsub/max
+   res.rgb = tex.rgb * col.rgb * (1.0-col.a);
+   res.a   = tex.a;
+   res.a = res.a + fog_hack.a;
+   
+   return res;
+}
+
+half4 main_T1_P0(PS_INPUT input) : COLOR0
+{
+   half4 tex = tex2D(TexS0, input.T0.xy);
+   half4 col = input.D0;
+   half4 res = 0;
+
+   res.rgb = half3(1.0,0,0);
+   res.a   = 1.0;
+   
+   // mul/min
+   res.a   = tex.a;   
+   res.rgb = (1 - tex.rgb) * (1 - col.rgb) + tex.rgb;
+   res.rgb = (1 - col.a) * res.rgb + col.aaa;
+   res.a   = (1 - col.a) * res.a + col.a;
+   res.a = res.a + fog_hack.a;
+
+   return res;
+}
+
+half4 main_T2_P0(PS_INPUT input) : COLOR0
+{
+   half4 tex = tex2D(TexS0, input.T0.xy);
+   half4 col = input.D0;
+   half4 res = 0;
+
+   res.rgb = half3(1.0,0,0);
+   res.a   = 1.0;
+   
+   // double_multiply
+   res.rgb = (0.5 - max(0, tex.rgb)) * (1 - col.rgb) + tex.rgb;
+   res.a = (1 - col.a) * tex.a + col.a * 0.5;
+   res.rgb = (1 - col.a) * res.rgb + col.a * 0.5;
+   res.a = res.a + fog_hack.a;
+
+   return res;
+}
+
+half4 main_T3_P0(PS_INPUT input) : COLOR0
+{
+   half4 tex = tex2D(TexS0, input.T0.xy);
+   half4 col = input.D0;
+   half4 res = 0;
+
+   res.rgb = half3(1.0,0,0);
+   res.a   = 1.0;
+   
+   // alpha blend
+   res.rgb = tex.rgb * col.rgb;
+   res.a   = tex.a   * (1 - col.a);  
+   res.a = res.a + fog_hack.a;
+
+   return res;
+}
+
+half4 main_T4_P0(PS_INPUT input) : COLOR0
+{
+   half4 tex = tex2D(TexS0, input.T0.xy);
+   half4 col = input.D0;
+   half4 res = 0;
+
+   res.rgb = half3(1.0,0,0);
+   res.a   = 1.0;
+   
+   // alpha_multiply_add
+   res.rgb = tex.rgb * col.rgb;
+   res.a = (1 - col.a) * tex.a;
+   res.rgb = (1 - col.a) * res.rgb;
+   res.a = res.a + fog_hack.a;
+
+   return res;
+}

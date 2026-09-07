@@ -1,0 +1,1573 @@
+{
+    "per_map_config": [
+        {
+            "map_name": "[cex]ice_land",
+            "tags_checksum": 4053519473,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h2]_ascension",
+            "tags_checksum": 323624966,
+            "gearbox_meters": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "[h2]_beavercreek",
+            "tags_checksum": 332305787,
+            "gearbox_meters": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "[h2]_coagulation",
+            "tags_checksum": 2371572374,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "[h2]_ivory_tower",
+            "tags_checksum": 2543101071,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h2]_lockout",
+            "tags_checksum": 307814276,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h2]_new_mombassa",
+            "tags_checksum": 1408726905,
+            "gearbox_meters": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "[h2]_sanctuary",
+            "tags_checksum": 3317449520,
+            "gearbox_meters": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "[h2]_turf",
+            "tags_checksum": 798340357,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h2]_warlock",
+            "tags_checksum": 2363319160,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "[h2]_zanzibar",
+            "tags_checksum": 146300553,
+            "gearbox_meters": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "[h3] core",
+            "tags_checksum": 475422351,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3] imposing v2",
+            "tags_checksum": 2036349886,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]_sandtrap",
+            "tags_checksum": 833166862,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]_sandtrap_race",
+            "tags_checksum": 379253962,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]_snowgulch",
+            "tags_checksum": 2807296481,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]_turf",
+            "tags_checksum": 2387773557,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "[h3]_valhalla",
+            "tags_checksum": 2296050574,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]ancient_sanctuary",
+            "tags_checksum": 3826604379,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]bloodgulch-legend",
+            "tags_checksum": 1378398675,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]camp_of_death",
+            "tags_checksum": 340605197,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "[h3]city",
+            "tags_checksum": 3611743673,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "[h3]coagulation",
+            "tags_checksum": 3913295074,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "[h3]coagulation_v2",
+            "tags_checksum": 1476083807,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]cold_v1",
+            "tags_checksum": 817870245,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]darkcreek",
+            "tags_checksum": 3973185539,
+            "gearbox_meters": true,
+            "alternate_bump_attenuation": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]darkwar",
+            "tags_checksum": 3421318503,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]deltaruins_ice",
+            "tags_checksum": 2656047750,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "[h3]derelict",
+            "tags_checksum": 3086947849,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]down_ruins",
+            "tags_checksum": 1115972832,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "[h3]field",
+            "tags_checksum": 3710413179,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "[h3]greengulch",
+            "tags_checksum": 1976338479,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]greenwinder",
+            "tags_checksum": 422600166,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]ground-battle",
+            "tags_checksum": 1715868109,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]ice_coagulation",
+            "tags_checksum": 2034166844,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]icefields",
+            "tags_checksum": 1362109723,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "[h3]island_of_halo_(fixed)",
+            "tags_checksum": 1390284911,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]last_resort",
+            "tags_checksum": 3561248664,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]narrows",
+            "tags_checksum": 736969227,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "[h3]new_mombasa",
+            "tags_checksum": 959262073,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]peril",
+            "tags_checksum": 3492209744,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "[h3]represa",
+            "tags_checksum": 3942525064,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "[h3]ruins",
+            "tags_checksum": 2904769270,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "[h3]sand-of-warriors",
+            "tags_checksum": 4086720569,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]sandtrap_v2",
+            "tags_checksum": 1938657367,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]silent_lexicon",
+            "tags_checksum": 4101169659,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "[h3]sniper_beavercreek",
+            "tags_checksum": 1862055332,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]sniper_ratrace",
+            "tags_checksum": 1802942984,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]stiftung",
+            "tags_checksum": 119793574,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "[h3]stronghold",
+            "tags_checksum": 943126055,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "[h3]trench",
+            "tags_checksum": 2398519350,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "[h3]valhalla",
+            "tags_checksum": 2057275896,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "[h3]war_island",
+            "tags_checksum": 3705609614,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]wizard",
+            "tags_checksum": 277163313,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[h3]zanzibar",
+            "tags_checksum": 4023121829,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[halo2]headlong",
+            "tags_checksum": 338899267,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "[hsp]the-pit",
+            "tags_checksum": 1632131053,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "2ump-edifice-pb04",
+            "tags_checksum": 3285613283,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "airlock",
+            "tags_checksum": 2193335335,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "alpine",
+            "tags_checksum": 1157278415,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "gearbox_shader_environment_types": true,
+            "alternate_bump_attenuation": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "ambushed_again",
+            "tags_checksum": 3627847885,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "antfarm",
+            "tags_checksum": 4017698218,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "ascetic",
+            "tags_checksum": 772258645,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "gearbox_chicago_multiply": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "asylum_v3",
+            "tags_checksum": 3711995939,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "atruck",
+            "tags_checksum": 552595708,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "alternate_bump_attenuation": true,
+            "embedded_lua": true
+        },
+        {
+            "map_name": "aquarii_final",
+            "tags_checksum": 3347310423,
+            "alternate_bump_attenuation": true,
+            "gearbox_shader_environment_types": true
+        },
+        {
+            "map_name": "aqueduct",
+            "tags_checksum": 1464597104,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "battlecraft_hd",
+            "tags_checksum": 3710647297,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "bigass",
+            "tags_checksum": 2485176458,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "bigass_v3",
+            "tags_checksum": 2234443607,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "gearbox_shader_environment_types": true,
+            "hud_number_scale": true,
+            "embedded_lua": true
+        },
+        {
+            "map_name": "bigassv2,104",
+            "tags_checksum": 720101929,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "birdcage-plus",
+            "tags_checksum": 2768256190,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "gearbox_chicago_multiply": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "blackisland",
+            "tags_checksum": 488540852,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "bleakness",
+            "tags_checksum": 1127567930,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "bleed_it_out",
+            "tags_checksum": 4132526008,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "blood_covenantv3",
+            "tags_checksum": 1643072039,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "blood_creek_campus_pb2",
+            "tags_checksum": 1839249948,
+            "gearbox_meters": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "bridge_crossing",
+            "tags_checksum": 2298268900,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "carljohnsons",
+            "tags_checksum": 3247911651,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "chronopolis_c3_public_beta0.2",
+            "tags_checksum": 2577351432,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "chronopolis_c3_public_beta0.7",
+            "tags_checksum": 2037259459,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "cmt_abandonedm",
+            "tags_checksum": 1754210995,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "gearbox_shader_environment_types": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "cmt_cliffrun",
+            "tags_checksum": 1291916188,
+            "gearbox_meters": true,
+            "invert_detail_after_reflection": true
+        },
+        {
+            "map_name": "cmt_coagulation_ce",
+            "tags_checksum": 2473594792,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "invert_detail_after_reflection": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "cmt_dissolusion",
+            "tags_checksum": 1324663642,
+            "gearbox_meters": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "cmt_fragment",
+            "tags_checksum": 2246640397,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "invert_detail_after_reflection": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "cmt_fragment_v3",
+            "tags_checksum": 3897403347,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "invert_detail_after_reflection": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "cmt_g3_augur",
+            "tags_checksum": 1934072626,
+            "gearbox_meters": true,
+            "invert_detail_after_reflection": true,
+            "block_multitexture_overlays": true
+        },
+        {
+            "map_name": "cmt_g3_mousetrap",
+            "tags_checksum": 2359930239,
+            "gearbox_meters": true,
+            "invert_detail_after_reflection": true,
+            "block_multitexture_overlays": true
+        },
+        {
+            "map_name": "cmt_g3_ruins",
+            "tags_checksum": 2257260941,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "gearbox_shader_environment_types": true,
+            "invert_detail_after_reflection": true,
+            "block_multitexture_overlays": true
+        },
+        {
+            "map_name": "cmt_g3_vestigial",
+            "tags_checksum": 4253924307,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "gearbox_shader_environment_types": true,
+            "invert_detail_after_reflection": true,
+            "block_multitexture_overlays": true
+        },
+        {
+            "map_name": "cmt_icy_swamps",
+            "tags_checksum": 3617152886,
+            "gearbox_meters": true,
+            "invert_detail_after_reflection": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "cmt_iron_tomb",
+            "tags_checksum": 1513513703,
+            "gearbox_meters": true,
+            "gearbox_shader_environment_types": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "cmt_ivory_tower",
+            "tags_checksum": 3390209255,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "cmt_junglewarfare",
+            "tags_checksum": 4106990675,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "cmt_snowtorn_cove",
+            "tags_checksum": 1267427580,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "invert_detail_after_reflection": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "cmt_snow_grove",
+            "tags_checksum": 1177749472,
+            "gearbox_meters": true,
+            "invert_detail_after_reflection": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "cmt_snow_grove_v2",
+            "tags_checksum": 1756051681,
+            "gearbox_meters": true,
+            "invert_detail_after_reflection": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "cmt_tensity",
+            "tags_checksum": 2223809626,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "gearbox_shader_environment_types": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "cmt_v2_dissolution",
+            "tags_checksum": 2370097034,
+            "gearbox_meters": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "cmt_v2_fragment",
+            "tags_checksum": 3897403347,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "gearbox_shader_environment_types": true,
+            "invert_detail_after_reflection": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "cmt_vestige",
+            "tags_checksum": 2968734392,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "invert_detail_after_reflection": true
+        },
+        {
+            "map_name": "co2-plus",
+            "tags_checksum": 4135685317,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "gearbox_chicago_multiply": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "courtyard",
+            "tags_checksum": 1941202580,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "cold_shoulder",
+            "tags_checksum": 1616235348,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "cold_valley",
+            "tags_checksum": 1679323263,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "colossus",
+            "tags_checksum": 573516686,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "colossus_beta",
+            "tags_checksum": 2382813252,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "crashtest0,1",
+            "tags_checksum": 1643293101,
+            "gearbox_meters": true,
+            "alternate_bump_attenuation": true
+        },
+        {
+            "map_name": "cursed-beavercreek",
+            "tags_checksum": 2568646208,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "cursed-bloodgulch",
+            "tags_checksum": 3383198224,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "cursed-chillout",
+            "tags_checksum": 52719196,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "cursed-damnation",
+            "tags_checksum": 3736327078,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "cursed-deathisland",
+            "tags_checksum": 4096677183,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "cursed-derelict",
+            "tags_checksum": 1546142864,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "cursed-hangemhigh",
+            "tags_checksum": 90609041,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "cursed-sidewinder",
+            "tags_checksum": 618599002,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "cursed-wizard",
+            "tags_checksum": 3115864755,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "deltaruined_intense",
+            "tags_checksum": 2827805978,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "deltaruins",
+            "tags_checksum": 178195327,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "deltaruins_v2",
+            "tags_checksum": 3456020581,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "desolate_keep",
+            "tags_checksum": 461699734,
+			"gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "dmt-drug-bust",
+            "tags_checksum": 902893642,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "dmt-goldeneye_stack-beta",
+            "tags_checksum": 508359448,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "dmt-od_blowcity",
+            "tags_checksum": 833548366,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "dmt-od_blowcity_night",
+            "tags_checksum": 1904769924,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "dmt-od_crossfire",
+            "tags_checksum": 3532848809,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "dmt-od_crossfire_v2",
+            "tags_checksum": 3095222880,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "dmt-od_docks",
+            "tags_checksum": 206708221,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "dmt-od_dustinteriors",
+            "tags_checksum": 3136162502,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "dmt-od_hideout_fix",
+            "tags_checksum": 1546368567,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "dmt-od_noregret",
+            "tags_checksum": 2067204593,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "dmt-od_outpost",
+            "tags_checksum": 1241953605,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "dmt-od_waterworks",
+            "tags_checksum": 610229076,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "dmt_racing",
+            "tags_checksum": 3778341560,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "dr_beta",
+            "tags_checksum": 827363759,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "dualing_keeps",
+            "tags_checksum": 1269502609,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "dustbeta",
+            "tags_checksum": 2541887377,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "fragment_v2",
+            "tags_checksum": 751722008,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "frogfoot v1.1",
+            "tags_checksum": 4231359426,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "gearbox_chicago_multiply": true,
+            "hud_number_scale": true,
+            "disable_bitmap_hud_scale_flags": true
+        },
+        {
+            "map_name": "gamenight-crossfire-000",
+            "tags_checksum": 3298574349,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "gamenight-crossfire-beta41",
+            "tags_checksum": 408944413,
+            "gearbox_bump_attenuation": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "gn-counterattack-06",
+            "tags_checksum": 429398417,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "gn_mech_war_52f_reconmix",
+            "tags_checksum": 1312108579,
+            "gearbox_multitexture_blend_modes": true
+        },
+        {
+            "map_name": "h1x_beavercreek_v3",
+            "tags_checksum": 3009870144,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "h1x_bloodgulch_v3",
+            "tags_checksum": 3666815480,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "h1x_boardingaction_v3",
+            "tags_checksum": 3390367509,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "h1x_carousel_v3",
+            "tags_checksum": 1949897330,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "h1x_chillout_v3",
+            "tags_checksum": 47131387,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "h1x_damnation_v3",
+            "tags_checksum": 2881732697,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "h1x_hangemhigh_v3",
+            "tags_checksum": 405775656,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "h1x_longest_v3",
+            "tags_checksum": 47131387,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "h1x_prisoner_v3",
+            "tags_checksum": 2445339903,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "h1x_putput_v3",
+            "tags_checksum": 2246294674,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "h1x_ratrace_v3",
+            "tags_checksum": 405775656,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "h1x_sidewinder_v3",
+            "tags_checksum": 3749550258,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "h1x_wizard_v3",
+            "tags_checksum": 4001519565,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "h2 coagulation",
+            "tags_checksum": 1328101123,
+            "gearbox_bump_attenuation": true,
+            "block_multitexture_overlays": true
+        },
+        {
+            "map_name": "h2_zanzibar",
+            "tags_checksum": 762373685,
+            "block_multitexture_overlays": true
+        },
+        {
+            "map_name": "h3 foundry",
+            "tags_checksum": 3492375562,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "halo_deep_ocean",
+            "tags_checksum": 2424911894,
+            "gearbox_meters": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "hektik-plus",
+            "tags_checksum": 406543850,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "gearbox_chicago_multiply": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "hk-banshee",
+            "tags_checksum": 1994327464,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "hk-bowser",
+            "tags_checksum": 852203426,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "hk-donut",
+            "tags_checksum": 2243540939,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "hk-fort",
+            "tags_checksum": 1869607732,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "hk-koopa",
+            "tags_checksum": 2349803804,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "hk-moo",
+            "tags_checksum": 522148477,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "hk-peach",
+            "tags_checksum": 2587299620,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+         {
+            "map_name": "hk-sherbert",
+            "tags_checksum": 2982849735,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "hk-wario",
+            "tags_checksum": 1694495234,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "hk-yoshi",
+            "tags_checksum": 972510471,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "homestead",
+            "tags_checksum": 955137156,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "intensity-plus",
+            "tags_checksum": 2527303275,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "gearbox_chicago_multiply": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "impasse",
+            "tags_checksum": 2665845787,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "imposing",
+            "tags_checksum": 2685402072,
+            "invert_detail_after_reflection": true
+        },
+        {
+            "map_name": "incoming",
+            "tags_checksum": 950904966,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "insomnia_map",
+            "tags_checksum": 2457291247,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "kgm_bosque_perdido",
+            "tags_checksum": 1204364326,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "kgm_oficina_abandonada",
+            "tags_checksum": 2073837624,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "kmap1,0",
+            "tags_checksum": 736075359,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "last_voyage",
+            "tags_checksum": 2792404736,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "lumoria_a",
+            "tags_checksum": 1176114997,
+            "hud_number_scale": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "lumoria_b",
+            "tags_checksum": 101410764,
+            "hud_number_scale": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "lumoria_c",
+            "tags_checksum": 4147310399,
+            "hud_number_scale": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "lumoria_d",
+            "tags_checksum": 2172917636,
+            "hud_number_scale": true,
+            "old_widescreen_fix": true
+        },
+        {
+            "map_name": "medical block",
+            "tags_checksum": 2390234435,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "metrobyte",
+            "tags_checksum": 2444694444,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "mongoose_point",
+            "tags_checksum": 3631700026,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "mystic",
+            "tags_checksum": 3343627246,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "mystic_classic",
+            "tags_checksum": 2104007597,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "mystic_mod",
+            "tags_checksum": 202461333,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "nitra_v2",
+            "tags_checksum": 2591971919,
+            "alternate_bump_attenuation": true
+        },
+        {
+            "map_name": "nk-g3-augur",
+            "tags_checksum": 2892088416,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true
+        },
+        {
+            "map_name": "off_groundv1",
+            "tags_checksum": 1177594827,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "paradis_perdu",
+            "tags_checksum": 649617161,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "pit_v2",
+            "tags_checksum": 3713543725,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "precipice_h1_spirit",
+            "tags_checksum": 1083752312,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true
+        },
+        {
+            "map_name": "preservation_site",
+            "tags_checksum": 1972643426,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true
+        },
+        {
+            "map_name": "rev_beavercreek_cavebeta",
+            "tags_checksum": 2580196703,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "alternate_bump_attenuation": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_carousel_cavebeta",
+            "tags_checksum": 2991758082,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_damnation_delta_cavebeta",
+            "tags_checksum": 3631150094,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_deltaruins_cavebeta",
+            "tags_checksum": 1005428330,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_delta_station_cavebeta",
+            "tags_checksum": 3558402979,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_dichotomy_cavebeta",
+            "tags_checksum": 1655823823,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_downrush_cavebeta",
+            "tags_checksum": 2109131072,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_fortress_cavebeta",
+            "tags_checksum": 1649497208,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_gridiron_cavebeta",
+            "tags_checksum": 1934412547,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_hangemhigh_cavebeta",
+            "tags_checksum": 783534432,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_icefields_cavebeta",
+            "tags_checksum": 2610836694,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_immure_cavebeta",
+            "tags_checksum": 3128918873,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_lockout_cavebeta",
+            "tags_checksum": 2382596327,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_midship_cavebeta",
+            "tags_checksum": 1108243424,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_paradox_cavebeta",
+            "tags_checksum": 163672100,
+            "gearbox_meters": true,
+            "gearbox_bump_attenuation": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_portent_cavebeta",
+            "tags_checksum": 3062916923,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_prisoner_cavebeta",
+            "tags_checksum": 4218757999,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_ratrace_cavebeta",
+            "tags_checksum": 1626487017,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_sanctuary_cavebeta",
+            "tags_checksum": 3042439455,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_savior_cave_prerelease",
+            "tags_checksum": 3422007092,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_shockwave_cavebeta",
+            "tags_checksum": 1610839607,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_snowcast_cavebeta",
+            "tags_checksum": 1683840640,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_snowed_in_cavebeta",
+            "tags_checksum": 4113545648,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_tensity_cavebeta",
+            "tags_checksum": 806016667,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_trench_cavebeta",
+            "tags_checksum": 1915675677,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_valhalla_cavebeta",
+            "tags_checksum": 2963716070,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "rev_wizard_cavebeta",
+            "tags_checksum": 2337478547,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "skedar v2",
+            "tags_checksum": 1046716636,
+            "gearbox_meters": true,
+            "gearbox_multitexture_blend_modes": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "sledding02",
+            "tags_checksum": 3619982776,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "tactics",
+            "tags_checksum": 3560533822,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "the_abyss_3",
+            "tags_checksum": 2165132826,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "the_cage",
+            "tags_checksum": 3055166625,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "the_cage_un",
+            "tags_checksum": 3055166625,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "the_land_of_hyrule_v0.2.1",
+            "tags_checksum": 1852711120,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "tower",
+            "tags_checksum": 1825181965,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "treason",
+            "tags_checksum": 3965726697,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "hud_number_scale": true
+        },
+        {
+            "map_name": "trenchfoot-010",
+            "tags_checksum": 1269099156,
+            "gearbox_multitexture_blend_modes": true
+        },
+        {
+            "map_name": "trenchfoot-beta09",
+            "tags_checksum": 335393819,
+            "gearbox_multitexture_blend_modes": true
+        },
+        {
+            "map_name": "trenchfoot-truce-beta04",
+            "tags_checksum": 701609001,
+            "gearbox_multitexture_blend_modes": true
+        },
+        {
+            "map_name": "tsce_mp_v1",
+            "tags_checksum": 2712588110,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true
+        },
+        {
+            "map_name": "tsce_multiplayerv1",
+            "tags_checksum": 3611179539,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true
+        },
+        {
+            "map_name": "tsce-bk-multiplayer",
+            "tags_checksum": 2672450550,
+            "gearbox_meters": true,
+            "gearbox_chicago_multiply": true,
+            "disable_bitmap_hud_scale_flags": true
+        },
+        {
+            "map_name": "twist_beta",
+            "tags_checksum": 4136381794,
+            "gearbox_bump_attenuation": true,
+            "gearbox_shader_environment_types": true
+        },
+        {
+            "map_name": "windfall_island_v.2",
+            "tags_checksum": 3505626269,
+            "gearbox_bump_attenuation": true
+        },
+        {
+            "map_name": "z_coagulation_h2_pb2",
+            "tags_checksum": 1990525991,
+            "gearbox_bump_attenuation": true,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "z_sanctuary_h2_pb2",
+            "tags_checksum": 3363242221,
+            "gearbox_meters": true
+        },
+        {
+            "map_name": "zanzibar",
+            "tags_checksum": 3442460181,
+            "block_multitexture_overlays": true
+        }
+    ]
+}
