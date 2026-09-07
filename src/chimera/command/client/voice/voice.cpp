@@ -233,7 +233,11 @@ namespace Chimera {
             }
             else if(args[0] == "disconnect") {
                 set_voice_chat_room(0);
-            }
+                    if(voice_chat_enabled()) {
+                        set_voice_chat_enabled(false);
+                        update_voice_frame_registration();
+                    }
+                }
 
             return true;
         }
