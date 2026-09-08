@@ -359,6 +359,9 @@ namespace Chimera {
                 // Controller vibration
                 set_up_vibration();
 
+                // Detect connect/disconnect to keep voice chat's room in sync
+                set_up_voice_native_command_watcher();
+
                 // Fix bipeds spawning on UI, oh the horror
                 set_up_fix_biped_ui_spawn();
             }
