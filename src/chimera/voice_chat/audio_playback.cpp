@@ -6,6 +6,7 @@
 #include <windows.h>
 #include <mmsystem.h>
 #include <vector>
+#include <list>
 #include <mutex>
 
 namespace Chimera {
@@ -16,7 +17,16 @@ namespace Chimera {
             WAVEHDR header{};
             std::vector<std::int16_t> samples;
         };
-        std::vector<Buffer> g_buffers;
+        // std::list, not std::vector: waveOutWrite() hands the OS/driver a
+        // raw pointer to this Buffer's WAVEHDR (&buffer.header) which it
+        // holds onto asynchronously until playback completes. A vector can
+        // relocate *every* existing element on growth (emplace_back past
+        // capacity) or shift *later* elements on erase() from the middle -
+        // either one leaves the OS pointing at stale memory and corrupts
+        // the heap the next time it marks a buffer done. A list never moves
+        // an element's memory on insert/erase, so those pointers stay valid
+        // for as long as the buffer is actually queued.
+        std::list<Buffer> g_buffers;
     }
 
     bool initialize_voice_audio_playback() noexcept {
