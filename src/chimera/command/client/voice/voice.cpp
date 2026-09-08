@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 #include "../../../command/command.hpp"
-#include "../../../event/command.hpp"
+#include "../../../event/connect.hpp"
 #include "../../../event/frame.hpp"
+#include "../../../event/tick.hpp"
+#include "../../../halo_data/multiplayer.hpp"
 #include "../../../halo_data/player.hpp"
 #include "../../../output/draw_text.hpp"
 #include "../../../output/output.hpp"
@@ -178,74 +180,64 @@ namespace Chimera {
             return room_id == 0 ? 1 : room_id;
         }
 
-        // Parses the argument of Halo's native "connect" command, which shows
-        // up as either "connect <host>:<port>", "connect <host> <port>", or
-        // just "connect <host>" (implying the default Halo port).
-        bool parse_connect_target(const std::vector<std::string> &args, std::string &host, std::uint16_t &port) noexcept {
-            if(args.empty() || args[0].empty()) return false;
+        // Fires on Halo's actual native connect routine (the same hook
+        // bookmark.cpp uses for its server history) - not on typed console
+        // text. This is what makes it reliable regardless of *how* you
+        // connect: typing "connect" yourself, double-clicking a server in
+        // the in-game browser, using a saved favorite, or anything else -
+        // they all funnel through this one engine-level call. ip/port are
+        // the real, already-resolved values Halo is about to connect to.
+        // Never blocks anything (always returns true).
+        bool voice_on_preconnect(std::uint32_t &ip, std::uint16_t &port, const char *password) noexcept {
+            (void)password;
 
-            const auto colon = args[0].find(':');
-            if(colon != std::string::npos) {
-                host = args[0].substr(0, colon);
-                if(!parse_port(args[0].c_str() + colon + 1, port)) return false;
-                return !host.empty();
+            // Same byte order as bookmark.cpp's on_connect(): reversed octet
+            // order out of the raw uint32 produces the correct dotted quad
+            // on this platform.
+            std::uint8_t *ip_chars = reinterpret_cast<std::uint8_t *>(&ip);
+            char host[16] = {};
+            std::snprintf(host, sizeof(host), "%u.%u.%u.%u", ip_chars[3], ip_chars[2], ip_chars[1], ip_chars[0]);
+
+            set_voice_chat_room(voice_room_id_for_server(host, port));
+
+            if(!g_manual_transport_override) {
+                // Default: same machine as the Halo server itself, on the
+                // voice-only port. Works automatically for any server whose
+                // admin also runs tools/voice_relay.py, with no single point
+                // of failure tied to one specific always-on box.
+                set_voice_chat_transport(host, DEFAULT_VOICE_PORT);
+            }
+            if(!voice_chat_enabled()) {
+                set_voice_chat_enabled(true);
+                update_voice_frame_registration();
             }
 
-            host = args[0];
-            if(args.size() >= 2) {
-                if(!parse_port(args[1].c_str(), port)) return false;
-            }
-            else {
-                port = DEFAULT_HALO_PORT;
-            }
             return true;
         }
 
-        // Fires on every console command Chimera itself doesn't recognize -
-        // i.e. Halo's own native commands, including "connect". This never
-        // blocks anything (always returns true): it only watches for joining/
-        // leaving a server to keep voice chat's room assignment and relay
-        // target in sync, the same way a server browser's "connect" click
-        // would.
-        bool voice_watch_native_commands(const char *command) noexcept {
-            auto args = split_arguments(command);
-            if(args.empty()) return true;
-
-            if(args[0] == "connect") {
-                args.erase(args.begin());
-                std::string host;
-                std::uint16_t port = 0;
-                if(parse_connect_target(args, host, port)) {
-                    set_voice_chat_room(voice_room_id_for_server(host, port));
-
-                    if(!g_manual_transport_override) {
-                        // Default: same machine as the Halo server itself, on
-                        // the voice-only port. Works automatically for any
-                        // server whose admin also runs tools/voice_relay.py,
-                        // with no single point of failure tied to one
-                        // specific always-on box.
-                        set_voice_chat_transport(host, DEFAULT_VOICE_PORT);
-                    }
-                    if(!voice_chat_enabled()) {
-                        set_voice_chat_enabled(true);
-                        update_voice_frame_registration();
-                    }
+        // There's no equivalent dedicated engine-level "disconnect" hook, so
+        // instead this polls server_type() every tick - reliable no matter
+        // *why* the connection ended (typed "disconnect", a kick, a server
+        // timeout, or quitting to the menu), since it's just checking "are
+        // we in a multiplayer game right now", not watching for any specific
+        // triggering action.
+        void voice_watch_disconnect() noexcept {
+            static ServerType last_server_type = SERVER_NONE;
+            auto current = server_type();
+            if(last_server_type != SERVER_NONE && current == SERVER_NONE) {
+                set_voice_chat_room(0);
+                if(voice_chat_enabled()) {
+                    set_voice_chat_enabled(false);
+                    update_voice_frame_registration();
                 }
             }
-            else if(args[0] == "disconnect") {
-                set_voice_chat_room(0);
-                    if(voice_chat_enabled()) {
-                        set_voice_chat_enabled(false);
-                        update_voice_frame_registration();
-                    }
-                }
-
-            return true;
+            last_server_type = current;
         }
     }
 
-    void set_up_voice_native_command_watcher() noexcept {
-        add_command_event(voice_watch_native_commands);
+    void set_up_voice_connection_watcher() noexcept {
+        add_preconnect_event(voice_on_preconnect);
+        add_tick_event(voice_watch_disconnect);
     }
 
     bool voice_command(int argc, const char **argv) {
