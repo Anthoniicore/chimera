@@ -80,6 +80,7 @@
 #include "halo_data/multiplayer.hpp"
 #include "miscellaneous/controller.hpp"
 #include "command/client/controller/vibration.hpp"
+#include "command/client/voice/voice.hpp"
 #include "halo_data/port.hpp"
 #include "command/hotkey.hpp"
 #include "config/ini.hpp"
