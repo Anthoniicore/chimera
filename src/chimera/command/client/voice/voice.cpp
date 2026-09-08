@@ -9,6 +9,7 @@
 #include "../../../voice_chat/audio_capture.hpp"
 #include "../../../voice_chat/voice_chat.hpp"
 #include "../../../voice_chat/voice_transport.hpp"
+#include "voice.hpp"
 
 #include <windows.h>
 
@@ -243,12 +244,8 @@ namespace Chimera {
         }
     }
 
-    namespace {
-        struct VoiceNativeCommandWatcher {
-            VoiceNativeCommandWatcher() noexcept { add_command_event(voice_watch_native_commands); }
-            ~VoiceNativeCommandWatcher() { remove_command_event(voice_watch_native_commands); }
-        };
-        static VoiceNativeCommandWatcher g_voice_native_command_watcher;
+    void set_up_voice_native_command_watcher() noexcept {
+        add_command_event(voice_watch_native_commands);
     }
 
     bool voice_command(int argc, const char **argv) {
