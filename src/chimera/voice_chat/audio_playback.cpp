@@ -8,33 +8,51 @@
 #include <vector>
 #include <list>
 #include <mutex>
+#include <algorithm>
+#include <cstdint>
 
 namespace Chimera {
     namespace {
         HWAVEOUT g_wave = nullptr;
         std::mutex g_mutex;
 
+        // Default voice playback volume.
+        // 1.0f = original volume
+        // 1.5f = 50% louder
+        // 2.0f = 100% louder
+        float g_voice_volume = 1.5f;
+
         struct Buffer {
             WAVEHDR header{};
             std::vector<std::int16_t> samples;
         };
 
-        // std::list is required here because waveOutWrite() keeps a raw
-        // pointer to the WAVEHDR until playback has completed.
-        //
-        // Each Buffer must therefore remain at a stable memory address
-        // for the entire lifetime of the queued waveOut buffer.
         std::list<Buffer> g_buffers;
+
+        void apply_voice_volume(std::vector<std::int16_t> &samples) noexcept {
+            for(auto &sample : samples) {
+                const float amplified =
+                    static_cast<float>(sample) * g_voice_volume;
+
+                if(amplified > 32767.0f) {
+                    sample = 32767;
+                } else if(amplified < -32768.0f) {
+                    sample = -32768;
+                } else {
+                    sample = static_cast<std::int16_t>(amplified);
+                }
+            }
+        }
     }
 
     bool initialize_voice_audio_playback() noexcept {
         std::lock_guard<std::mutex> lock(g_mutex);
 
-        if(g_wave)
+        if(g_wave) {
             return true;
+        }
 
         WAVEFORMATEX format{};
-
         format.wFormatTag = WAVE_FORMAT_PCM;
         format.nChannels = static_cast<WORD>(VOICE_AUDIO_CHANNELS);
         format.nSamplesPerSec = VOICE_AUDIO_SAMPLE_RATE;
@@ -57,8 +75,9 @@ namespace Chimera {
     void shutdown_voice_audio_playback() noexcept {
         std::lock_guard<std::mutex> lock(g_mutex);
 
-        if(!g_wave)
+        if(!g_wave) {
             return;
+        }
 
         waveOutReset(g_wave);
 
@@ -86,11 +105,13 @@ namespace Chimera {
         const std::int16_t *pcm,
         std::size_t samples
     ) noexcept {
-        if(!pcm || samples == 0)
+        if(!pcm || samples == 0) {
             return false;
+        }
 
-        if(!initialize_voice_audio_playback())
+        if(!initialize_voice_audio_playback()) {
             return false;
+        }
 
         std::lock_guard<std::mutex> lock(g_mutex);
 
@@ -108,24 +129,22 @@ namespace Chimera {
                 }
             }
 
-            if(g_buffers.size() >= 32)
+            if(g_buffers.size() >= 32) {
                 return false;
+            }
         }
 
-        /*
-         * IMPORTANT:
-         *
-         * The Buffer is created directly inside g_buffers.
-         * We must NOT create a local Buffer and call waveOutWrite()
-         * using its address, because waveOut keeps that pointer after
-         * this function returns.
-         */
         g_buffers.emplace_back();
 
-        auto it = std::prev(g_buffers.end());
+        auto it = g_buffers.end();
+        --it;
+
         Buffer &buffer = *it;
 
         buffer.samples.assign(pcm, pcm + samples);
+
+        // Apply playback gain before sending samples to WinMM.
+        apply_voice_volume(buffer.samples);
 
         buffer.header.lpData =
             reinterpret_cast<LPSTR>(buffer.samples.data());
@@ -159,14 +178,20 @@ namespace Chimera {
             return false;
         }
 
-        /*
-         * Do NOT erase this Buffer here.
-         *
-         * waveOut still owns/uses the WAVEHDR asynchronously.
-         * The Buffer remains inside g_buffers until it is marked
-         * WHDR_DONE and is recycled by the queue above.
-         */
-
         return true;
+    }
+
+    float get_voice_audio_playback_volume() noexcept {
+        std::lock_guard<std::mutex> lock(g_mutex);
+        return g_voice_volume;
+    }
+
+    void set_voice_audio_playback_volume(float volume) noexcept {
+        std::lock_guard<std::mutex> lock(g_mutex);
+
+        // Keep the value in a safe and useful range.
+        volume = std::max(0.0f, std::min(volume, 4.0f));
+
+        g_voice_volume = volume;
     }
 }
