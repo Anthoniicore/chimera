@@ -9,4 +9,6 @@ namespace Chimera {
     void shutdown_voice_audio_playback() noexcept;
     bool voice_audio_playback_initialized() noexcept;
     bool queue_voice_audio_playback(const std::int16_t *pcm, std::size_t samples) noexcept;
+    float get_voice_audio_playback_volume() noexcept;
+    void set_voice_audio_playback_volume(float volume) noexcept;
 }
