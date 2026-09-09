@@ -33,18 +33,16 @@ namespace Chimera {
 
         constexpr std::uint32_t VOICE_NO_PLAYER_SENDER_ID = 0xFFFFFFFFu;
 
-        // The port every server admin's voice companion (tools/voice_relay.py)
-        // should listen on. When connecting to a server, this client defaults
-        // to that server's own IP on this port -- so voice chat "just works"
-        // for any server whose admin also runs the relay on their own
-        // machine (the same box already hosting their dedicated server),
-        // with no dependency on any one central machine. Overridable per
-        // session with chimera_voice_host, e.g. if an admin prefers to run
-        // the relay on a separate box from the game server.
         constexpr std::uint16_t DEFAULT_VOICE_PORT = 30777;
         constexpr std::uint16_t DEFAULT_HALO_PORT = 2302;
 
-        // Convert a Halo (UTF-16) player name to a narrow string for display.
+        // How often to send a keepalive while connected but not talking, to
+        // stop this client's own NAT mapping (and the relay's per-room
+        // timeout, which is 60s) from expiring during conversational
+        // silence. Comfortably under both.
+        constexpr DWORD KEEPALIVE_INTERVAL_MS = 20000;
+        DWORD g_last_voice_send_tick = 0;
+
         std::string player_name_to_narrow(const wchar_t *name) {
             char buffer[64] = {};
             if(WideCharToMultiByte(CP_UTF8, 0, name, -1, buffer, sizeof(buffer) - 1, nullptr, nullptr) == 0) {
@@ -53,9 +51,6 @@ namespace Chimera {
             return std::string(buffer);
         }
 
-        // Look up a display name for a voice sender ID. The sender ID is the
-        // speaker's machine_index at the time they transmitted, which
-        // PlayerTable::get_player_by_rcon_id() maps back to a live Player.
         std::string voice_sender_display_name(std::uint32_t sender_id) {
             if(sender_id == VOICE_NO_PLAYER_SENDER_ID) return "Unknown";
             auto *player = PlayerTable::get_player_table().get_player_by_rcon_id(sender_id);
@@ -64,10 +59,6 @@ namespace Chimera {
             return name.empty() ? "Unknown" : name;
         }
 
-        // The sender ID transmitted in every voice packet: the local player's
-        // machine_index (stable for the whole session, unique per connected
-        // client), so receivers can map packets back to a name via
-        // PlayerTable::get_player_by_rcon_id().
         std::uint32_t voice_sender_id() noexcept {
             auto *player = PlayerTable::get_player_table().get_client_player();
             if(player) return static_cast<std::uint32_t>(player->machine_index);
@@ -78,9 +69,6 @@ namespace Chimera {
             return static_cast<std::uint32_t>(GetTickCount());
         }
 
-        // A small persistent overlay in the top-left corner listing everyone
-        // currently talking, redrawn every frame (Halo's on-screen text only
-        // lasts one frame, so this must be re-applied continuously).
         void draw_voice_speaker_overlay() noexcept {
             auto speakers = get_active_voice_speakers();
             if(speakers.empty()) return;
@@ -104,22 +92,27 @@ namespace Chimera {
         void voice_frame_update() noexcept {
             if(!voice_chat_enabled()) return;
 
-            // Receive first so remote speech remains responsive even while the
-            // local push-to-talk key is not held.
             process_received_voice_packets();
             draw_voice_speaker_overlay();
 
             const bool talking = (GetAsyncKeyState(static_cast<int>(g_push_to_talk_key)) & 0x8000) != 0;
             if(talking) {
-                // The capture thread and Opus work off the game thread. This
-                // frame callback only moves already-produced packets to UDP.
-                while(send_pending_voice_packet(voice_sender_id(), g_sequence, voice_timestamp())) {}
+                bool sent_any = false;
+                while(send_pending_voice_packet(voice_sender_id(), g_sequence, voice_timestamp())) { sent_any = true; }
+                if(sent_any) g_last_voice_send_tick = GetTickCount();
             }
             else {
-                // Do not allow buffered microphone audio from before the PTT
-                // press to be transmitted when the player starts talking.
                 std::vector<std::int16_t> discarded;
                 while(consume_voice_audio_packet(discarded)) {}
+
+                // Long conversational pauses (which are completely normal)
+                // are exactly when a NAT mapping is most likely to expire -
+                // so keep sending something small every so often even while
+                // silent, rather than only while actually talking.
+                const auto now = GetTickCount();
+                if(now - g_last_voice_send_tick >= KEEPALIVE_INTERVAL_MS) {
+                    if(send_voice_keepalive_packet(voice_sender_id())) g_last_voice_send_tick = now;
+                }
             }
         }
 
@@ -156,10 +149,6 @@ namespace Chimera {
             return true;
         }
 
-        // 32-bit FNV-1a. Not cryptographic - just needs to spread different
-        // "host:port" strings across different room IDs so a shared relay can
-        // tell unrelated Halo servers apart. Collisions would only mean two
-        // different servers' voice chat briefly mixing, not a security issue.
         std::uint32_t fnv1a(const std::string &text) noexcept {
             std::uint32_t hash = 0x811C9DC5u;
             for(unsigned char c : text) {
@@ -176,24 +165,12 @@ namespace Chimera {
 
         std::uint32_t voice_room_id_for_server(const std::string &host, std::uint16_t port) noexcept {
             auto room_id = fnv1a(to_lower(host) + ":" + std::to_string(port));
-            // Room 0 is reserved to mean "not connected to anything".
             return room_id == 0 ? 1 : room_id;
         }
 
-        // Fires on Halo's actual native connect routine (the same hook
-        // bookmark.cpp uses for its server history) - not on typed console
-        // text. This is what makes it reliable regardless of *how* you
-        // connect: typing "connect" yourself, double-clicking a server in
-        // the in-game browser, using a saved favorite, or anything else -
-        // they all funnel through this one engine-level call. ip/port are
-        // the real, already-resolved values Halo is about to connect to.
-        // Never blocks anything (always returns true).
         bool voice_on_preconnect(std::uint32_t &ip, std::uint16_t &port, const char *password) noexcept {
             (void)password;
 
-            // Same byte order as bookmark.cpp's on_connect(): reversed octet
-            // order out of the raw uint32 produces the correct dotted quad
-            // on this platform.
             std::uint8_t *ip_chars = reinterpret_cast<std::uint8_t *>(&ip);
             char host[16] = {};
             std::snprintf(host, sizeof(host), "%u.%u.%u.%u", ip_chars[3], ip_chars[2], ip_chars[1], ip_chars[0]);
@@ -201,10 +178,6 @@ namespace Chimera {
             set_voice_chat_room(voice_room_id_for_server(host, port));
 
             if(!g_manual_transport_override) {
-                // Default: same machine as the Halo server itself, on the
-                // voice-only port. Works automatically for any server whose
-                // admin also runs tools/voice_relay.py, with no single point
-                // of failure tied to one specific always-on box.
                 set_voice_chat_transport(host, DEFAULT_VOICE_PORT);
             }
             if(!voice_chat_enabled()) {
@@ -215,12 +188,6 @@ namespace Chimera {
             return true;
         }
 
-        // There's no equivalent dedicated engine-level "disconnect" hook, so
-        // instead this polls server_type() every tick - reliable no matter
-        // *why* the connection ended (typed "disconnect", a kick, a server
-        // timeout, or quitting to the menu), since it's just checking "are
-        // we in a multiplayer game right now", not watching for any specific
-        // triggering action.
         void voice_watch_disconnect() noexcept {
             static ServerType last_server_type = SERVER_NONE;
             auto current = server_type();
