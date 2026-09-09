@@ -23,129 +23,73 @@ namespace Chimera {
     }
 
     CommandResult Command::call(const std::vector<std::string> &arguments) const noexcept {
-        // Get argument count
         std::size_t arg_count = arguments.size();
-
-        // If no arguments were passed, just call it.
-        if(arg_count == 0) {
-            return this->call(0, nullptr);
-        }
-
-        // Make our array
+        if(arg_count == 0) return this->call(0, nullptr);
         auto arguments_alloc(std::make_unique<const char *[]>(arg_count));
-        for(std::size_t i = 0; i < arg_count; i++) {
-            arguments_alloc[i] = arguments[i].data();
-        }
-
-        // Do it!
+        for(std::size_t i = 0; i < arg_count; i++) arguments_alloc[i] = arguments[i].data();
         return this->call(arg_count, arguments_alloc.get());
     }
 
     std::vector<std::string> split_arguments(const char *command) noexcept {
-        // This is the vector to return.
         std::vector<std::string> arguments;
-
-        // This value will be true if we are inside quotes, during which the word will not separate into arguments.
         bool in_quotes = false;
-
-        // If using a backslash, add the next character to the string regardless of what it is.
         bool escape_character = false;
-
-        // Regardless of if there were any characters, there was an argument.
         bool allow_empty_argument = false;
-
-        // Get the command
         std::size_t command_size = std::strlen(command);
-
-        // Get the argument
         std::string argument;
         for(std::size_t i = 0; i < command_size; i++) {
             if(escape_character) {
                 escape_character = false;
             }
-            // Escape character - this will be used to include the next character regardless of what it is
             else if(command[i] == '\\') {
                 escape_character = true;
                 continue;
             }
-            // If a whitespace or octotothorpe is in quotations in the argument, then it is considered part of the argument.
             else if(command[i] == '"') {
                 in_quotes = !in_quotes;
                 allow_empty_argument = true;
                 continue;
             }
             else if((command[i] == ' ' || command[i] == '\r' || command[i] == '\n' || command[i] == '#') && !in_quotes) {
-                // Add argument if not empty.
                 if(argument != "" || allow_empty_argument) {
                     arguments.push_back(argument);
                     argument = "";
                     allow_empty_argument = false;
                 }
-
-                // Terminate if beginning a comment.
-                if(command[i] == '#') {
-                    break;
-                }
+                if(command[i] == '#') break;
                 continue;
             }
             argument += command[i];
         }
-
-        // Add the last argument.
-        if(argument != "" || allow_empty_argument) {
-            arguments.push_back(argument);
-        }
-
+        if(argument != "" || allow_empty_argument) arguments.push_back(argument);
         return arguments;
     }
 
     std::string unsplit_arguments(const std::vector<std::string> &arguments) noexcept {
-        // This is the string to return.
         std::string unsplit;
-
         for(std::size_t i = 0; i < arguments.size(); i++) {
-            // This is a reference to the argument we're dealing with.
             const std::string &argument = arguments[i];
-
-            // This will be the final string we append to the unsplit string.
             std::string argument_final;
-
-            // Set this to true if we need to surround this argument with quotes.
             bool surround_with_quotes = false;
-
-            // Go through each character and add them one-by-one to argument_final.
             for(const char &c : argument) {
                 switch(c) {
-                    // Backslashes and quotation marks should be escaped.
                     case '\\':
                     case '"':
                         argument_final += '\\';
                         break;
-
-                    // If we're using spaces or octothorpes, the argument should be surrounded with quotation marks. We could escape those, but this is more readable.
                     case '#':
                     case ' ':
                         surround_with_quotes = true;
                         break;
-
                     default:
                         break;
                 }
                 argument_final += c;
             }
-
-            if(surround_with_quotes) {
-                argument_final = std::string("\"") + argument_final + "\"";
-            }
-
+            if(surround_with_quotes) argument_final = std::string("\"") + argument_final + "\"";
             unsplit += argument_final;
-
-            // Add the space to separate the next argument.
-            if(i + 1 < arguments.size()) {
-                unsplit += " ";
-            }
+            if(i + 1 < arguments.size()) unsplit += " ";
         }
-
         return unsplit;
     }
 
@@ -173,7 +117,6 @@ namespace Chimera {
 
         // Debug
         ADD_COMMAND("chimera_budget", "chimera_category_debug", "client", budget_command, true, 0, 1);
-
         if(this->feature_present("core_devmode_retail")) {
             ADD_COMMAND("chimera_devmode", "chimera_category_debug", "core_devmode_retail", devmode_retail_command, true, 0, 1);
         }
@@ -211,6 +154,8 @@ namespace Chimera {
         ADD_COMMAND("chimera_throttle_fps", "chimera_category_enhancement", "client", throttle_fps_command, true, 0, 1);
         ADD_COMMAND("chimera_fp_reverb", "chimera_category_enhancement", "client_fp_reverb", fp_reverb_command, true, 0, 1);
         ADD_COMMAND("chimera_voice", "chimera_category_enhancement", "client", voice_command, true, 0, 1);
+        ADD_COMMAND("chimera_voice_all", "chimera_category_enhancement", "client", voice_all_command, false, 0, 0);
+        ADD_COMMAND("chimera_voice_team", "chimera_category_enhancement", "client", voice_team_command, false, 0, 0);
         ADD_COMMAND("chimera_voice_host", "chimera_category_enhancement", "client", voice_host_command, false, 2, 2);
         ADD_COMMAND("chimera_voice_ptt", "chimera_category_enhancement", "client", voice_ptt_command, true, 0, 1);
         ADD_COMMAND("chimera_voice_speakers", "chimera_category_enhancement", "client", voice_speakers_command, false, 0, 0);
@@ -222,7 +167,7 @@ namespace Chimera {
         ADD_COMMAND("chimera_spectate_previous", "chimera_category_server", "client_spectate", spectate_previous_command, false, 0, 0);
         ADD_COMMAND("chimera_spam_to_join", "chimera_category_server", "client", spam_to_join_command, true, 0, 1);
         ADD_COMMAND("chimera_spectate_team_only", "chimera_category_server", "client_spectate", spectate_team_only_command, true, 0, 1);
-        ADD_COMMAND("chimera_delete_empty_weapons", "chimera_category_server", "core", delete_empty_weapons_command, true, 0, 1);
+        ADD_COMMAND("chimera_delete_empty_weapons", "chimera_category_server", "core", delete_empty_weapons_command, false, 0, 1);
         ADD_COMMAND("chimera_player_list", "chimera_category_server", "core", player_list_command, false, 0, 0);
         ADD_COMMAND("chimera_block_equipment_rotation", "chimera_category_server", "core_null_rotation", block_equipment_rotation_command, true, 0, 1);
         ADD_COMMAND("chimera_allow_all_passengers", "chimera_category_server", "core_mtv", allow_all_passengers_command, true, 0, 1);
@@ -252,7 +197,6 @@ namespace Chimera {
         ADD_COMMAND("chimera_uncap_cinematic", "chimera_category_visual", "client_interpolate", uncap_cinematic_command, true, 0, 1);
         ADD_COMMAND("chimera_widescreen_fix", "chimera_category_visual", "client_widescreen", widescreen_fix_command, true, 0, 1);
         ADD_COMMAND("chimera_safe_zones", "chimera_category_visual", "client_widescreen", safe_zone_command, true, 0, 2);
-        // ADD_COMMAND("chimera_meme_zone", "chimera_category_visual", "client_widescreen", meme_zone_command, true, 0, 1);
 
         // Lua
         ADD_COMMAND("chimera_lua_reload_scripts", "chimera_category_lua", "core", reload_scripts_command, false, 0, 0);
@@ -267,7 +211,7 @@ namespace Chimera {
         ADD_COMMAND("chimera_diagonals", "chimera_category_controller", "client_diagonals", diagonals_command, true, 0, 1);
         ADD_COMMAND("chimera_deadzones", "chimera_category_controller", "client_deadzones", deadzones_command, true, 0, 1);
         ADD_COMMAND("chimera_block_button_quotes", "chimera_category_controller", "client_quote_prompt", block_button_quotes_command, true, 0, 1);
-        ADD_COMMAND("chimera_vibration", "chimera_category_controller", "client", vibration_command, true ,0 ,2);
+        ADD_COMMAND("chimera_vibration", "chimera_category_controller", "client", vibration_command, true, 0, 2);
 
         // Bookmark
         ADD_COMMAND("chimera_bookmark_list", "chimera_category_bookmark", "client", bookmark_list_command, false, 0, 0);
