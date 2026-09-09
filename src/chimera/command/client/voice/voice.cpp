@@ -30,6 +30,7 @@ namespace Chimera {
         unsigned int g_push_to_talk_key = 'V';
         std::uint32_t g_sequence = 0;
         bool g_manual_transport_override = false;
+        bool g_manual_voice_channel_override = false;
 
         constexpr std::uint32_t VOICE_NO_PLAYER_SENDER_ID = 0xFFFFFFFFu;
 
@@ -38,8 +39,7 @@ namespace Chimera {
 
         // How often to send a keepalive while connected but not talking, to
         // stop this client's own NAT mapping (and the relay's per-room
-        // timeout, which is 60s) from expiring during conversational
-        // silence. Comfortably under both.
+        // timeout) from expiring during conversational silence.
         constexpr DWORD KEEPALIVE_INTERVAL_MS = 20000;
         DWORD g_last_voice_send_tick = 0;
 
@@ -69,6 +69,19 @@ namespace Chimera {
             return static_cast<std::uint32_t>(GetTickCount());
         }
 
+        void update_voice_channel_from_game() noexcept {
+            if(g_manual_voice_channel_override) return;
+
+            // Only query the current gametype after Halo reports that we are
+            // actually connected. This avoids reading current_gametype_sig
+            // during the pre-connect phase.
+            if(server_type() == SERVER_NONE) return;
+
+            set_voice_chat_channel(
+                is_team() ? VoiceChatChannel::TEAM : VoiceChatChannel::ALL
+            );
+        }
+
         void draw_voice_speaker_overlay() noexcept {
             auto speakers = get_active_voice_speakers();
             if(speakers.empty()) return;
@@ -92,6 +105,10 @@ namespace Chimera {
         void voice_frame_update() noexcept {
             if(!voice_chat_enabled()) return;
 
+            // Automatically select TEAM for team-based variants and ALL for
+            // FFA variants. Manual voice_all/team commands can override this.
+            update_voice_channel_from_game();
+
             process_received_voice_packets();
             draw_voice_speaker_overlay();
 
@@ -105,10 +122,6 @@ namespace Chimera {
                 std::vector<std::int16_t> discarded;
                 while(consume_voice_audio_packet(discarded)) {}
 
-                // Long conversational pauses (which are completely normal)
-                // are exactly when a NAT mapping is most likely to expire -
-                // so keep sending something small every so often even while
-                // silent, rather than only while actually talking.
                 const auto now = GetTickCount();
                 if(now - g_last_voice_send_tick >= KEEPALIVE_INTERVAL_MS) {
                     if(send_voice_keepalive_packet(voice_sender_id())) g_last_voice_send_tick = now;
@@ -180,6 +193,11 @@ namespace Chimera {
             if(!g_manual_transport_override) {
                 set_voice_chat_transport(host, DEFAULT_VOICE_PORT);
             }
+
+            // Every new server connection starts in automatic ALL/TEAM mode.
+            // The actual game type is read once the game is active.
+            g_manual_voice_channel_override = false;
+
             if(!voice_chat_enabled()) {
                 set_voice_chat_enabled(true);
                 update_voice_frame_registration();
@@ -193,6 +211,8 @@ namespace Chimera {
             auto current = server_type();
             if(last_server_type != SERVER_NONE && current == SERVER_NONE) {
                 set_voice_chat_room(0);
+                g_manual_voice_channel_override = false;
+                set_voice_chat_channel(VoiceChatChannel::ALL);
                 if(voice_chat_enabled()) {
                     set_voice_chat_enabled(false);
                     update_voice_frame_registration();
@@ -227,6 +247,32 @@ namespace Chimera {
 
         update_voice_frame_registration();
         console_output(voice_chat_enabled() ? "true" : "false");
+        return true;
+    }
+
+    bool voice_all_command(int argc, const char **argv) {
+        (void)argv;
+        if(argc != 0) {
+            console_output("Usage: chimera_voice_all");
+            return false;
+        }
+
+        g_manual_voice_channel_override = true;
+        set_voice_chat_channel(VoiceChatChannel::ALL);
+        console_output("Voice channel: ALL (manual override)");
+        return true;
+    }
+
+    bool voice_team_command(int argc, const char **argv) {
+        (void)argv;
+        if(argc != 0) {
+            console_output("Usage: chimera_voice_team");
+            return false;
+        }
+
+        g_manual_voice_channel_override = true;
+        set_voice_chat_channel(VoiceChatChannel::TEAM);
+        console_output("Voice channel: TEAM (manual override)");
         return true;
     }
 
@@ -295,6 +341,9 @@ namespace Chimera {
         }
 
         console_output("Voice enabled: %s", voice_chat_enabled() ? "yes" : "no");
+        console_output("Voice channel: %s%s",
+            voice_chat_channel() == VoiceChatChannel::TEAM ? "TEAM" : "ALL",
+            g_manual_voice_channel_override ? " (manual)" : " (automatic)");
         console_output("Local socket ready: %s", voice_transport_initialized() ? "yes" : "no");
         console_output("Relay destination set: %s", voice_transport_has_destination() ? "yes" : "no");
         console_output("Current room ID: 0x%08X%s", static_cast<unsigned int>(voice_chat_room()), voice_chat_room() == 0 ? " (not connected to a server)" : "");
