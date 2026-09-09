@@ -6,6 +6,11 @@
 #include <vector>
 
 namespace Chimera {
+    enum class VoiceChatChannel : std::uint8_t {
+        ALL = 0,
+        TEAM = 1
+    };
+
     void initialize_voice_chat() noexcept;
     void shutdown_voice_chat() noexcept;
     bool voice_chat_initialized() noexcept;
@@ -16,6 +21,9 @@ namespace Chimera {
 
     void set_voice_chat_room(std::uint32_t room_id) noexcept;
     std::uint32_t voice_chat_room() noexcept;
+
+    VoiceChatChannel voice_chat_channel() noexcept;
+    void set_voice_chat_channel(VoiceChatChannel channel) noexcept;
 
     bool send_pending_voice_packet(std::uint32_t sender_id, std::uint32_t &sequence, std::uint32_t timestamp) noexcept;
 
