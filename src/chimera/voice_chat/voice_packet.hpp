@@ -10,6 +10,12 @@ namespace Chimera {
     constexpr std::uint8_t VOICE_PACKET_VERSION = 2;
     constexpr std::size_t VOICE_PACKET_HEADER_SIZE = 24;
 
+    // Set on packets that exist only to keep a client's own NAT mapping
+    // (and the relay's per-room timeout) alive during silence. Carries a
+    // single dummy payload byte - it is never decoded as audio and never
+    // counts as "this player is talking".
+    constexpr std::uint8_t VOICE_PACKET_FLAG_KEEPALIVE = 0x01;
+
     struct VoicePacketHeader {
         std::uint32_t magic;
         std::uint8_t version;
@@ -21,12 +27,6 @@ namespace Chimera {
         std::uint32_t timestamp;
     };
 
-    // Serializes a self-contained voice packet. The wire format is explicitly
-    // byte-oriented and does not depend on compiler struct packing.
-    //
-    // room_id identifies which Halo server this packet belongs to (a hash of
-    // that server's connect address) so a shared relay can keep voice chat
-    // from bleeding across unrelated games; it is not a secret.
     bool build_voice_packet(std::uint32_t room_id,
                             std::uint32_t sender_id,
                             std::uint32_t sequence,
@@ -34,6 +34,14 @@ namespace Chimera {
                             const std::uint8_t *payload,
                             std::size_t payload_size,
                             std::vector<std::uint8_t> &packet) noexcept;
+
+    // Builds a minimal packet with VOICE_PACKET_FLAG_KEEPALIVE set and a
+    // single dummy payload byte. Sent periodically while connected but not
+    // talking, purely to keep this client's NAT mapping (and the relay's
+    // per-room timeout) from expiring during silence.
+    bool build_voice_keepalive_packet(std::uint32_t room_id,
+                                       std::uint32_t sender_id,
+                                       std::vector<std::uint8_t> &packet) noexcept;
 
     // Validates and decodes a packet without taking ownership of its payload.
     bool parse_voice_packet(const std::uint8_t *packet,
