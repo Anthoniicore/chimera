@@ -53,6 +53,29 @@ namespace Chimera {
         return true;
     }
 
+    bool build_voice_keepalive_packet(std::uint32_t room_id,
+                                      std::uint32_t sender_id,
+                                      std::vector<std::uint8_t> &packet) noexcept {
+        packet.clear();
+
+        // A single dummy byte: both this parser and the relay's require
+        // payload_size >= 1, and this keeps the packet as small as possible
+        // on the wire since the byte itself is never read.
+        constexpr std::uint8_t dummy_payload = 0;
+
+        packet.reserve(VOICE_PACKET_HEADER_SIZE + 1);
+        write_u32(packet, VOICE_PACKET_MAGIC);
+        packet.push_back(VOICE_PACKET_VERSION);
+        packet.push_back(VOICE_PACKET_FLAG_KEEPALIVE);
+        write_u16(packet, 1);
+        write_u32(packet, room_id);
+        write_u32(packet, sender_id);
+        write_u32(packet, 0); // sequence: unused for keepalives
+        write_u32(packet, 0); // timestamp: unused for keepalives
+        packet.push_back(dummy_payload);
+        return true;
+    }
+
     bool parse_voice_packet(const std::uint8_t *packet,
                             std::size_t packet_size,
                             VoicePacketHeader &header,
