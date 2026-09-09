@@ -24,7 +24,6 @@ namespace Chimera {
 
     void set_voice_chat_room(std::uint32_t room_id) noexcept {
         if(room_id != g_room_id) {
-            // Switching servers - old room's "who's talking" state no longer applies.
             g_last_heard_from.clear();
         }
         g_room_id = room_id;
@@ -97,6 +96,13 @@ namespace Chimera {
         return false;
     }
 
+    bool send_voice_keepalive_packet(std::uint32_t sender_id) noexcept {
+        if(!voice_chat_enabled() || !voice_transport_has_destination() || g_room_id == 0) return false;
+        std::vector<std::uint8_t> packet;
+        if(!build_voice_keepalive_packet(g_room_id, sender_id, packet)) return false;
+        return send_voice_transport_packet(packet.data(), packet.size());
+    }
+
     void process_received_voice_packets() noexcept {
         if(!voice_chat_enabled()) return;
         for(;;) {
@@ -109,6 +115,10 @@ namespace Chimera {
                 ++g_packets_wrong_room;
                 continue;
             }
+            // Keepalives exist only to hold a NAT mapping / relay timeout
+            // open during silence - never decode them as audio, and never
+            // count them as "this player is talking".
+            if(header.flags & VOICE_PACKET_FLAG_KEEPALIVE) continue;
             std::vector<std::int16_t> pcm;
             if(!decode_voice_audio_packet(payload, header.payload_size, pcm)) continue;
             queue_voice_audio_playback(pcm.data(), pcm.size());
