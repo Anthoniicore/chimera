@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
+#include <algorithm>
 #include <cctype>
 
 #include "../../chimera.hpp"
@@ -21,26 +22,16 @@
 #include "light.hpp"
 #include "object.hpp"
 #include "particle.hpp"
-
 #include "interpolate.hpp"
 
 namespace Chimera {
-    // This is the progress since the last tick (updated every frame).
+    // Presentation progress only. Simulation/network tick rate remains unchanged.
     float interpolation_tick_progress = 0;
-
-    // This is the assumed tick rate of the first person camera.
     static float *first_person_camera_tick_rate = nullptr;
-
-    // Set for if interpolation is enabled
     bool interpolation_enabled = false;
 
-
     static void on_tick() noexcept {
-        // Prevent interpolation when the game is paused
-        if(game_paused()) {
-            return;
-        }
-
+        if(game_paused()) return;
         interpolate_antenna_on_tick();
         interpolate_flag_on_tick();
         interpolate_fp_on_tick();
@@ -50,18 +41,13 @@ namespace Chimera {
         interpolate_particle_on_tick();
         interpolation_tick_progress = 0;
         float current_tick_rate = effective_tick_rate();
-        if(*first_person_camera_tick_rate != current_tick_rate) {
-            overwrite(first_person_camera_tick_rate, current_tick_rate);
-        }
+        if(*first_person_camera_tick_rate != current_tick_rate) overwrite(first_person_camera_tick_rate, current_tick_rate);
     }
 
     static void on_preframe() noexcept {
-        if(game_paused()) {
-            return;
-        }
-
-        interpolation_tick_progress = get_tick_progress();
-
+        if(game_paused()) return;
+        // Clamp presentation progress so a bad timing sample can never overshoot a snapshot.
+        interpolation_tick_progress = std::clamp(get_tick_progress(), 0.0f, 1.0f);
         interpolate_antenna_before();
         interpolate_flag_before();
         interpolate_light_before();
@@ -70,13 +56,11 @@ namespace Chimera {
     }
 
     static void on_frame() noexcept {
-        if(game_paused()) {
-            return;
-        }
-
+        if(game_paused()) return;
         interpolate_antenna_after();
         interpolate_object_after();
         interpolate_particle_after();
+        interpolate_light_after();
     }
 
     void clear_buffers() noexcept {
@@ -92,18 +76,13 @@ namespace Chimera {
         static auto *fp_interp_ptr = get_chimera().get_signature("fp_interp_sig").data();
         static Hook fp_interp_hook;
         first_person_camera_tick_rate = *reinterpret_cast<float **>(get_chimera().get_signature("fp_cam_tick_rate_sig").data() + 2);
-
         add_tick_event(on_tick);
         add_preframe_event(on_preframe);
         add_frame_event(on_frame);
         add_precamera_event(interpolate_camera_before);
         add_camera_event(interpolate_camera_after);
         write_jmp_call(fp_interp_ptr, fp_interp_hook, reinterpret_cast<const void *>(interpolate_fp_before), reinterpret_cast<const void *>(interpolate_fp_after));
-
-        // Block built-in fp camera interpolation. Let Chimera do it instead.
         overwrite(get_chimera().get_signature("camera_interpolation_sig").data() + 0xF, static_cast<unsigned char>(0xEB));
-
-        //Clear interpolation buffers on major game state changes to prevent funny things from happening
         add_revert_event(clear_buffers);
         interpolation_enabled = true;
     }
