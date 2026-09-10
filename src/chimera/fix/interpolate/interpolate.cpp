@@ -25,7 +25,6 @@
 #include "interpolate.hpp"
 
 namespace Chimera {
-    // Presentation progress only. Simulation/network tick rate remains unchanged.
     float interpolation_tick_progress = 0;
     static float *first_person_camera_tick_rate = nullptr;
     bool interpolation_enabled = false;
@@ -46,8 +45,9 @@ namespace Chimera {
 
     static void on_preframe() noexcept {
         if(game_paused()) return;
-        // Clamp presentation progress so a bad timing sample can never overshoot a snapshot.
-        interpolation_tick_progress = std::clamp(get_tick_progress(), 0.0f, 1.0f);
+        interpolation_tick_progress = get_tick_progress();
+        if(interpolation_tick_progress < 0.0f) interpolation_tick_progress = 0.0f;
+        else if(interpolation_tick_progress > 1.0f) interpolation_tick_progress = 1.0f;
         interpolate_antenna_before();
         interpolate_flag_before();
         interpolate_light_before();
