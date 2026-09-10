@@ -7,8 +7,10 @@
 #include "voice_packet.hpp"
 #include "voice_transport.hpp"
 
+#include "../halo_data/multiplayer.hpp"
 #include "../halo_data/player.hpp"
 
+#include <algorithm>
 #include <chrono>
 #include <unordered_map>
 
@@ -25,6 +27,18 @@ namespace Chimera {
 
         VoiceChatChannel g_voice_chat_channel = VoiceChatChannel::ALL;
 
+        Player *get_voice_player_by_machine_index(std::uint32_t machine_index) noexcept {
+            auto &table = PlayerTable::get_player_table();
+            const auto count = std::min<std::size_t>(table.current_size, 16);
+            for(std::size_t i = 0; i < count; ++i) {
+                auto &player = table.first_element[i];
+                if(player.player_id != 0xFFFF && player.machine_index == machine_index) {
+                    return &player;
+                }
+            }
+            return nullptr;
+        }
+
         std::uint8_t get_local_voice_team() noexcept {
             auto *player = PlayerTable::get_player_table().get_client_player();
             if(!player) return 0xFF;
@@ -32,22 +46,35 @@ namespace Chimera {
         }
 
         std::uint8_t get_voice_sender_team(std::uint32_t sender_id) noexcept {
-            if(sender_id == 0xFFFFFFFFu) return 0xFF;
-            auto *player = PlayerTable::get_player_table().get_player_by_rcon_id(sender_id);
+            auto *player = get_voice_player_by_machine_index(sender_id);
             if(!player) return 0xFF;
             return player->team;
         }
 
-        bool voice_sender_is_audible(std::uint32_t sender_id) noexcept {
-            if(g_voice_chat_channel == VoiceChatChannel::ALL) return true;
+        bool voice_sender_is_audible(std::uint32_t sender_id, std::uint8_t sender_flags) noexcept {
+            // FFA, Oddball FFA, KOTH FFA, etc. have no team boundary. In
+            // those modes both voice commands must remain usable.
+            if(!is_team()) return true;
 
             const auto local_team = get_local_voice_team();
-            if(local_team == 0xFF) return true;
-
             const auto sender_team = get_voice_sender_team(sender_id);
-            if(sender_team == 0xFF) return false;
+            if(local_team == 0xFF || sender_team == 0xFF) return false;
 
-            return local_team == sender_team;
+            const bool same_team = local_team == sender_team;
+            const bool sender_is_all = (sender_flags & VOICE_PACKET_FLAG_CHANNEL_ALL) != 0;
+
+            // TEAM sender: same team only, regardless of the receiver mode.
+            if(!sender_is_all) return same_team;
+
+            // ALL sender: same-team players always hear it; an opposing
+            // player only hears it when that receiver also selected ALL.
+            return same_team || g_voice_chat_channel == VoiceChatChannel::ALL;
+        }
+
+        std::uint8_t voice_outgoing_flags() noexcept {
+            return g_voice_chat_channel == VoiceChatChannel::ALL
+                ? VOICE_PACKET_FLAG_CHANNEL_ALL
+                : 0;
         }
     }
 
@@ -120,7 +147,14 @@ namespace Chimera {
     bool consume_serialized_voice_packet(std::uint32_t sender_id, std::uint32_t &sequence, std::uint32_t timestamp, std::vector<std::uint8_t> &packet) noexcept {
         std::vector<std::uint8_t> opus_packet;
         if(!consume_encoded_voice_packet(opus_packet)) return false;
-        if(!build_voice_packet(g_room_id, sender_id, sequence, timestamp, opus_packet.data(), opus_packet.size(), packet)) return false;
+        if(!build_voice_packet(g_room_id,
+                               sender_id,
+                               sequence,
+                               timestamp,
+                               voice_outgoing_flags(),
+                               opus_packet.data(),
+                               opus_packet.size(),
+                               packet)) return false;
         ++sequence;
         return true;
     }
@@ -164,8 +198,10 @@ namespace Chimera {
             // Keepalives never represent voice audio.
             if(header.flags & VOICE_PACKET_FLAG_KEEPALIVE) continue;
 
-            // In TEAM mode, discard enemy voice before decoding/playback.
-            if(!voice_sender_is_audible(header.sender_id)) continue;
+            // Apply both sides of the channel policy before decoding. This
+            // prevents enemy TEAM traffic from being played to an ALL
+            // receiver, while still allowing ALL-to-ALL cross-team voice.
+            if(!voice_sender_is_audible(header.sender_id, header.flags)) continue;
 
             std::vector<std::int16_t> pcm;
             if(!decode_voice_audio_packet(payload, header.payload_size, pcm)) continue;
