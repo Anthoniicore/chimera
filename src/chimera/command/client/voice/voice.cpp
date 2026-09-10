@@ -51,9 +51,21 @@ namespace Chimera {
             return std::string(buffer);
         }
 
+        Player *voice_player_by_machine_index(std::uint32_t machine_index) noexcept {
+            auto &table = PlayerTable::get_player_table();
+            const auto count = std::min<std::size_t>(table.current_size, 16);
+            for(std::size_t i = 0; i < count; ++i) {
+                auto &player = table.first_element[i];
+                if(player.player_id != 0xFFFF && player.machine_index == machine_index) {
+                    return &player;
+                }
+            }
+            return nullptr;
+        }
+
         std::string voice_sender_display_name(std::uint32_t sender_id) {
             if(sender_id == VOICE_NO_PLAYER_SENDER_ID) return "Unknown";
-            auto *player = PlayerTable::get_player_table().get_player_by_rcon_id(sender_id);
+            auto *player = voice_player_by_machine_index(sender_id);
             if(!player) return "Unknown";
             auto name = player_name_to_narrow(player->name);
             return name.empty() ? "Unknown" : name;
