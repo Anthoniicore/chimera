@@ -16,6 +16,12 @@ namespace Chimera {
     // counts as "this player is talking".
     constexpr std::uint8_t VOICE_PACKET_FLAG_KEEPALIVE = 0x01;
 
+    // Voice channel selected by the sender. TEAM is represented by no
+    // channel bit for backwards compatibility with older VCH2 clients.
+    // ALL explicitly sets this bit so receivers can distinguish an ALL
+    // transmission from a TEAM-only transmission.
+    constexpr std::uint8_t VOICE_PACKET_FLAG_CHANNEL_ALL = 0x02;
+
     struct VoicePacketHeader {
         std::uint32_t magic;
         std::uint8_t version;
@@ -31,13 +37,14 @@ namespace Chimera {
                             std::uint32_t sender_id,
                             std::uint32_t sequence,
                             std::uint32_t timestamp,
+                            std::uint8_t flags,
                             const std::uint8_t *payload,
                             std::size_t payload_size,
                             std::vector<std::uint8_t> &packet) noexcept;
 
     // Builds a minimal packet with VOICE_PACKET_FLAG_KEEPALIVE set and a
     // single dummy payload byte. Sent periodically while connected but not
-    // talking, purely to keep this client's NAT mapping (and the relay's
+    // talking, purely to keep this client's own NAT mapping (and the relay's
     // per-room timeout) from expiring during silence.
     bool build_voice_keepalive_packet(std::uint32_t room_id,
                                        std::uint32_t sender_id,
