@@ -81,17 +81,15 @@ namespace Chimera {
             }
         }
 
-        // First-person camera position must follow the latest simulation state.
-        // Interpolating it would add up to one full 30 Hz tick of input/camera latency.
-        // Remote/spectator cameras retain interpolation for smooth presentation.
-        if(type == CameraType::CAMERA_FIRST_PERSON && !vehicle_first_person && !spectate_enabled) {
-            data.position = current_tick->data.position;
-            rollback = false;
-            return;
-        }
-
+        // Keep the camera in the same presentation time domain as the world.
+        // Remote/world objects are rendered between the previous and current
+        // simulation ticks. The local first-person camera must use the same
+        // interpolation phase; otherwise the camera moves at the newest tick
+        // while the world is still one presentation step behind, which creates
+        // relative warping/jitter whenever the player moves.
         interpolate_point(previous_tick->data.position, current_tick->data.position, data.position, interpolation_tick_progress);
 
+        // Don't interpolate rotation if in first person unless we're in a vehicle.
         if(type != CameraType::CAMERA_FIRST_PERSON || vehicle_first_person || spectate_enabled) {
             interpolate_point(previous_tick->data.orientation[0], current_tick->data.orientation[0], data.orientation[0], interpolation_tick_progress);
             interpolate_point(previous_tick->data.orientation[1], current_tick->data.orientation[1], data.orientation[1], interpolation_tick_progress);
