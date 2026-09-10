@@ -5,9 +5,14 @@
 
 namespace Chimera {
     /**
-     * Interpolate light.
+     * Interpolate light before rendering.
      */
     void interpolate_light_before() noexcept;
+
+    /**
+     * Restore the latest simulation light state after rendering.
+     */
+    void interpolate_light_after() noexcept;
 
     /**
      * Clear the buffers. This should be done if changing the interpolation setting.
