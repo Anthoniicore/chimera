@@ -153,13 +153,15 @@ namespace Chimera {
         ADD_COMMAND("chimera_set_color", "chimera_category_enhancement", "client", set_color_command, true, 0, 1);
         ADD_COMMAND("chimera_throttle_fps", "chimera_category_enhancement", "client", throttle_fps_command, true, 0, 1);
         ADD_COMMAND("chimera_fp_reverb", "chimera_category_enhancement", "client_fp_reverb", fp_reverb_command, true, 0, 1);
-        ADD_COMMAND("chimera_voice", "chimera_category_enhancement", "client", voice_command, true, 0, 1);
-        ADD_COMMAND("chimera_voice_all", "chimera_category_enhancement", "client", voice_all_command, false, 0, 0);
-        ADD_COMMAND("chimera_voice_team", "chimera_category_enhancement", "client", voice_team_command, false, 0, 0);
-        ADD_COMMAND("chimera_voice_host", "chimera_category_enhancement", "client", voice_host_command, false, 2, 2);
-        ADD_COMMAND("chimera_voice_ptt", "chimera_category_enhancement", "client", voice_ptt_command, true, 0, 1);
-        ADD_COMMAND("chimera_voice_speakers", "chimera_category_enhancement", "client", voice_speakers_command, false, 0, 0);
-        ADD_COMMAND("chimera_voice_status", "chimera_category_enhancement", "client", voice_status_command, false, 0, 0);
+
+        // Voice
+        ADD_COMMAND("chimera_voice", "voice", "client", voice_command, true, 0, 1);
+        ADD_COMMAND("chimera_voice_all", "voice", "client", voice_all_command, false, 0, 0);
+        ADD_COMMAND("chimera_voice_team", "voice", "client", voice_team_command, false, 0, 0);
+        ADD_COMMAND("chimera_voice_host", "voice", "client", voice_host_command, false, 2, 2);
+        ADD_COMMAND("chimera_voice_ptt", "voice", "client", voice_ptt_command, true, 0, 1);
+        ADD_COMMAND("chimera_voice_speakers", "voice", "client", voice_speakers_command, false, 0, 0);
+        ADD_COMMAND("chimera_voice_status", "voice", "client", voice_status_command, false, 0, 0);
 
         // Server
         ADD_COMMAND("chimera_spectate", "chimera_category_server", "client_spectate", spectate_command, false, 1, 1);
