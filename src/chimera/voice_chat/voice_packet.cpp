@@ -34,6 +34,7 @@ namespace Chimera {
                             std::uint32_t sender_id,
                             std::uint32_t sequence,
                             std::uint32_t timestamp,
+                            std::uint8_t flags,
                             const std::uint8_t *payload,
                             std::size_t payload_size,
                             std::vector<std::uint8_t> &packet) noexcept {
@@ -43,7 +44,7 @@ namespace Chimera {
         packet.reserve(VOICE_PACKET_HEADER_SIZE + payload_size);
         write_u32(packet, VOICE_PACKET_MAGIC);
         packet.push_back(VOICE_PACKET_VERSION);
-        packet.push_back(0);
+        packet.push_back(flags);
         write_u16(packet, static_cast<std::uint16_t>(payload_size));
         write_u32(packet, room_id);
         write_u32(packet, sender_id);
