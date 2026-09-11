@@ -10,6 +10,11 @@ extern "C" {
     std::byte *not_using_analog_movement_jmp = nullptr;
     std::byte *yes_using_analog_movement_jmp = nullptr;
 
+    // 1.0 preserves the native aim-assist output exactly. This value will be
+    // exposed to the configurable-strength layer once the wrapper is proven
+    // stable in-game.
+    float aim_assist_strength = 1.0F;
+
     void on_aim_assist();
 }
 
