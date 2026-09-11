@@ -14,7 +14,6 @@ extern "C" {
     float aim_assist_strength = 1.0F;
 
     void on_aim_assist();
-    void on_aim_assist_strength();
 }
 
 namespace Chimera {
@@ -63,11 +62,5 @@ namespace Chimera {
         static Hook hook;
         const void *old_fn;
         write_function_override(aim_assist, hook, reinterpret_cast<const void *>(on_aim_assist), &old_fn);
-
-        // Native aim assist writes its final correction at this point. Scale only
-        // that correction so the native target selection, visibility checks,
-        // team filtering, angle calculation, and 30-tick timing remain untouched.
-        static Hook strength_hook;
-        write_jmp_call(aim_assist + 0x357, strength_hook, reinterpret_cast<const void *>(on_aim_assist_strength), nullptr);
     }
 }
