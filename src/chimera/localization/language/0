@@ -19,7 +19,7 @@ chimera_error_player_not_found                                                  
 chimera_error_takes_player_number                                               This command takes a player number from chimera_players.
 chimera_error_failed_to_open_init                                               Failed to open init file %s
 chimera_error_cannot_download_retail_maps_1                                     Retail Halo PC and HaloMD maps are unsupported by the map downloader.
-chimera_error_cannot_download_retail_maps_2                                     Modify chimera.ini and set \"download_retail_maps\" under \"memory\" to enable.
+chimera_error_cannot_download_retail_maps_2                                     Modify chimera.ini and set download_retail_maps under memory to enable.
 chimera_error_cannot_download_invalid_name                                      Map name is invalid.
 
 chimera_tag_map_is_protected                                                    Map is protected (unknown)
@@ -91,7 +91,7 @@ chimera_unblock_all_extra_weapons_success                                       
 chimera_block_equipment_rotation_command_help                                   Disable rotation from equipment spawns when hosting (emulates Xbox behavior).
 chimera_block_gametype_indicator_command_help                                   Hide the gametype indicator.
 chimera_block_gametype_rules_command_help                                       Disable gametype rules at the start of a game.
-chimera_block_hold_f1_command_help                                              Disable the Hold \"F1\" for score prompt.
+chimera_block_hold_f1_command_help                                              Disable the Hold F1 for score prompt.
 chimera_block_loading_screen_command_help                                       Disable loading screen.
 chimera_block_multitexture_overlays_command_help                                Disable multitexture overlays.
 chimera_block_mouse_acceleration_command_help                                   Disable mouse acceleration.
@@ -143,10 +143,10 @@ chimera_fix_flashlight_command_help                                             
 chimera_fix_lens_flare_scaling_command_help                                     Fix lens flares not scaling at higher resolutions.
 chimera_fix_motion_sensor_command_help                                          Fix motion sensor behavior on high frame rates.
 
-chimera_fov_command_help                                                        Set field of view. Use \"auto\" for automatic FOV or suffix FOV with \"v\" to lock to a vertical FOV.
-chimera_fov_vehicle_command_help                                                Set field of view for vehicles. Use \"auto\" for automatic FOV or suffix FOV with \"v\" to lock to a vertical FOV.
-chimera_fov_cinematic_command_help                                              Set field of view for cinematics. Use \"auto\" for automatic FOV or suffix FOV with \"v\" to lock to a vertical FOV.
-chimera_fov_error_invalid_fov_given                                             Invalid FOV given. Expected \"auto\", <FOV>, <FOV>v, or \"off\"
+chimera_fov_command_help                                                        Set field of view. Use auto for automatic FOV or suffix FOV with v to lock to a vertical FOV.
+chimera_fov_vehicle_command_help                                                Set field of view for vehicles. Use auto for automatic FOV or suffix FOV with v to lock to a vertical FOV.
+chimera_fov_cinematic_command_help                                              Set field of view for cinematics. Use auto for automatic FOV or suffix FOV with v to lock to a vertical FOV.
+chimera_fov_error_invalid_fov_given                                             Invalid FOV given. Expected auto, FOV, FOVv, or off
 chimera_fp_reverb_command_help                                                  Set whether or not first person sounds should have reverb when EAX is enabled.
 chimera_interpolate_help                                                        Improve the appearance of object movement and animation. (CPU intensive!)
 chimera_language_command_available_languages                                    Available languages:
@@ -164,7 +164,7 @@ chimera_send_chat_message_throttled                                             
 chimera_set_color_command_help                                                  Set your color.
 chimera_set_color_command_invalid_color                                         Invalid color %s specified.
 chimera_set_name_help                                                           Set your name.
-chimera_set_name_invalid_name_error                                             Invalid name \"%s\". Argument must be between 0 and 11 characters.
+chimera_set_name_invalid_name_error                                             Invalid name %s. Argument must be between 0 and 11 characters.
 chimera_show_coordinates_help                                                   Display your coordinates.
 chimera_show_fps_help                                                           Display your frame rate.
 chimera_shrink_empty_weapons_help                                               Shrink all empty weapons on the ground.
