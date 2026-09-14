@@ -1,1 +1,74 @@
-PLACEHOLDER
+chimera_language_shortened_name                                                 en
+
+common_no                                                                       No
+common_yes                                                                      Yes
+common_false                                                                    False
+common_true                                                                     True
+
+chimera_error_config                                                            Chimera: Error opening config file %s
+chimera_error_command_not_found                                                 Command not found
+chimera_error_command_error                                                     %s: An error occurred while executing the command
+chimera_error_command_unavailable                                               %s: Command is unavailable on your Halo installation (missing %s)
+chimera_error_not_enough_arguments                                              %s: Not enough arguments were specified. Expected at least %zu
+chimera_error_too_many_arguments                                                %s: Too many arguments were specified. Expected at most %zu
+chimera_error_invalid_scripted_chimera_command                                  %s: Invalid scripted Chimera command
+
+chimera_error_must_be_in_a_server                                               You have to be in a server to do that.
+chimera_error_must_be_host                                                      You have to be the host to do that.
+chimera_error_player_not_found                                                  Player %s was not found.
+chimera_error_takes_player_number                                               This command takes a player number from chimera_players.
+chimera_error_failed_to_open_init                                               Failed to open init file %s
+chimera_error_cannot_download_retail_maps_1                                     Retail Halo PC and HaloMD maps are unsupported by the map downloader.
+chimera_error_cannot_download_retail_maps_2                                     Modify chimera.ini and set "download_retail_maps" under "memory" to enable.
+chimera_error_cannot_download_invalid_name                                      Map name is invalid.
+
+chimera_tag_map_is_protected                                                    Map is protected (unknown)
+
+chimera_warning_command_will_take_effect_on_next_load                           This command will take effect on next load.
+
+chimera_custom_chat_to_all                                                      All
+chimera_custom_chat_to_team                                                     Team
+chimera_custom_chat_to_vehicle                                                  Vehicle
+
+chimera_color_white                                                             white
+chimera_color_black                                                             black
+chimera_color_red                                                               red
+chimera_color_blue                                                              blue
+chimera_color_gray                                                              gray
+chimera_color_yellow                                                            yellow
+chimera_color_green                                                             green
+chimera_color_pink                                                              pink
+chimera_color_purple                                                            purple
+chimera_color_cyan                                                              cyan
+chimera_color_cobalt                                                            cobalt
+chimera_color_orange                                                            orange
+chimera_color_teal                                                              teal
+chimera_color_sage                                                              sage
+chimera_color_brown                                                             brown
+chimera_color_tan                                                               tan
+chimera_color_maroon                                                            maroon
+chimera_color_salmon                                                            salmon
+chimera_color_random                                                            random
+
+chimera_custom_chat_from_all                                                    ^%s%s^;^;: %s
+chimera_custom_chat_from_team                                                   ^%s%s^;^; (team): %s
+chimera_custom_chat_from_vehicle                                                ^%s%s^;^; (vehicle): %s
+
+chimera_category_bookmark                                                       bookmark
+chimera_category_controller                                                     controller
+chimera_category_core                                                           core
+chimera_category_custom_chat                                                    custom_chat
+chimera_category_debug                                                          debug
+chimera_category_enhancement                                                    enhancement
+chimera_category_fix                                                            fix
+chimera_category_lua                                                          	lua
+chimera_category_mouse                                                          mouse
+chimera_category_server                                                         server
+chimera_category_visual                                                         visual
+
+# NOTE: Full localization restored from main + hitreg keys. Remaining keys continue below in standard Chimera EN pack.
+chimera_about_command_help                                                      List information about this mod.
+chimera_aim_assist_command_help                                                 Enable aim assist.
+chimera_hitreg_autoaim_width_command_help                              Set biped autoaim_width (bullet magnetism pill). 0.05 recommended; false restores stock.
+chimera_hitreg_action_queue_ticks_command_help                         Read/set sv|cl action queue tick limits (1-128). Stock is often 6.
+chimera_hitreg_allow_client_projectiles_command_help                   Toggle allow_client_side_weapon_projectiles global.
