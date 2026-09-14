@@ -77,4 +77,7 @@ set(COMMAND_FILES
     ${COMMAND_DIR}/client/visual/split_screen_hud.cpp
     ${COMMAND_DIR}/client/visual/uncap_cinematic.cpp
     ${COMMAND_DIR}/client/visual/widescreen_fix.cpp
+    ${COMMAND_DIR}/client/hitreg/autoaim_width.cpp
+    ${COMMAND_DIR}/client/hitreg/action_queue_ticks.cpp
+    ${COMMAND_DIR}/client/hitreg/allow_client_projectiles.cpp
 )
