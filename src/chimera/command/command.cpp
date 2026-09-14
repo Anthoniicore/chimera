@@ -154,6 +154,11 @@ namespace Chimera {
         ADD_COMMAND("chimera_throttle_fps", "chimera_category_enhancement", "client", throttle_fps_command, true, 0, 1);
         ADD_COMMAND("chimera_fp_reverb", "chimera_category_enhancement", "client_fp_reverb", fp_reverb_command, true, 0, 1);
 
+        // Hitreg (autoaim width + net action queues; no projectile bend hook)
+        ADD_COMMAND("chimera_hitreg_autoaim_width", "chimera_category_enhancement", "client", hitreg_autoaim_width_command, true, 0, 1);
+        ADD_COMMAND("chimera_hitreg_action_queue_ticks", "chimera_category_enhancement", "client", hitreg_action_queue_ticks_command, false, 0, 2);
+        ADD_COMMAND("chimera_hitreg_allow_client_projectiles", "chimera_category_enhancement", "client", hitreg_allow_client_projectiles_command, true, 0, 1);
+
         // Voice
         ADD_COMMAND("chimera_voice", "voice", "client", voice_command, true, 0, 1);
         ADD_COMMAND("chimera_voice_all", "voice", "client", voice_all_command, false, 0, 0);
