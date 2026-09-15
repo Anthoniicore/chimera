@@ -21,6 +21,9 @@ set(COMMAND_FILES
     ${COMMAND_DIR}/core/server/delete_empty_weapons.cpp
     ${COMMAND_DIR}/core/server/player_list.cpp
     ${COMMAND_DIR}/client/controller/aim_assist.cpp
+    ${COMMAND_DIR}/client/controller/aim_assist_strength.cpp
+    ${COMMAND_DIR}/client/controller/magnetism_adhesion.cpp
+    ${COMMAND_DIR}/client/controller/magnetism_adhesion.S
     ${COMMAND_DIR}/client/controller/auto_uncrouch.cpp
     ${COMMAND_DIR}/client/controller/auto_uncrouch.S
     ${COMMAND_DIR}/client/controller/block_button_quotes.cpp
