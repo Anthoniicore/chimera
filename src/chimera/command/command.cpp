@@ -159,6 +159,9 @@ namespace Chimera {
         ADD_COMMAND("chimera_hitreg_action_queue_ticks", "chimera_category_enhancement", "client", hitreg_action_queue_ticks_command, false, 0, 2);
         ADD_COMMAND("chimera_hitreg_allow_client_projectiles", "chimera_category_enhancement", "client", hitreg_allow_client_projectiles_command, true, 0, 1);
 
+        // Ambient volume (mute/lower map ambience via sound_class_set_gain)
+        ADD_COMMAND("chimera_ambient_volume", "chimera_category_enhancement", "client", ambient_volume_command, true, 0, 1);
+
         // Voice
         ADD_COMMAND("chimera_voice", "voice", "client", voice_command, true, 0, 1);
         ADD_COMMAND("chimera_voice_all", "voice", "client", voice_all_command, false, 0, 0);
