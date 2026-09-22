@@ -81,4 +81,5 @@ set(COMMAND_FILES
     ${COMMAND_DIR}/client/hitreg/action_queue_ticks.cpp
     ${COMMAND_DIR}/client/hitreg/allow_client_projectiles.cpp
     ${COMMAND_DIR}/client/enhancement/ambient_volume.cpp
+    ${COMMAND_DIR}/client/enhancement/lightmap_specular.cpp
 )
