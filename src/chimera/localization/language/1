@@ -73,3 +73,4 @@ chimera_lua_warning_script_too_outdated                                         
 chimera_lua_warning_script_possibly_not_work                                    Es posible que no funcione como se espera.
 chimera_lua_error_failed_to_load_script                                         No se pudo cargar %s
 chimera_ambient_volume_command_help                                 Ajusta gain de ambient/device_nature/device_machinery (0.0-1.0). false restaura stock.
+chimera_lightmap_specular_command_help                            Activa specular de lightmap (on/off o escala 0.1-10). Mas metalico/brillante.
